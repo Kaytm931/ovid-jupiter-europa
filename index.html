@@ -85,22 +85,19 @@
 
   .hero-bg {
     position: absolute; inset: 0;
-    /* Lokales Hintergrundbild – Europa auf dem Stier, Freundinnen */
-    background-image: url('hero_background.png');
+    background-image: url('./images/hero_background.png');
     background-size: cover; background-position: center 35%;
     transform: scale(1.08); will-change: transform;
-    /* Leichter Blur: macht das Bild zur atmosphärischen Kulisse */
-    filter: blur(1.5px) brightness(0.85);
+    filter: blur(1.5px);
   }
 
   .hero-overlay {
     position: absolute; inset: 0;
-    /* Dunkles Overlay: Text bleibt immer lesbar */
     background: linear-gradient(
       160deg,
-      rgba(7,6,10,0.72) 0%,
-      rgba(7,6,10,0.65) 30%,
-      rgba(7,6,10,0.85) 65%,
+      rgba(7,6,10,0.78) 0%,
+      rgba(7,6,10,0.65) 40%,
+      rgba(7,6,10,0.82) 70%,
       rgba(7,6,10,1) 100%
     );
   }
@@ -187,13 +184,15 @@
 
   /* reveal on scroll */
   .reveal {
-    opacity: 0; transform: translateY(38px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .reveal.in { opacity: 1; transform: translateY(0); }
   .reveal-left {
-    opacity: 0; transform: translateX(-40px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    opacity: 0; transform: translateX(-35px);
+    transition: opacity 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .reveal-left.in { opacity: 1; transform: translateX(0); }
 
@@ -258,7 +257,6 @@
   ══════════════════════════════════════════════ */
   #originaltext {
     background: var(--navy);
-    border-top: 1px solid rgba(201,164,74,0.12);
     border-bottom: 1px solid rgba(201,164,74,0.12);
   }
 
@@ -312,7 +310,7 @@
   }
 
   /* ══════════════════════════════════════════════
-     §3  METRISCHE ANALYSE
+     §3  METRISCHE ANALYSE (Ruby-basiert)
   ══════════════════════════════════════════════ */
   #metrik { background: var(--black); }
 
@@ -342,71 +340,96 @@
   .lg-sym.short { color: var(--blue-muted); }
   .lg-sym.anc   { color: var(--ivory-dim); }
 
-  /* ── metrische Analyse · ruby layout ─────────────────────── */
-  .scan-block { margin-bottom: 3rem; }
+  .scan-block {
+    margin-bottom: 3.5rem;
+    padding: 2rem 2.5rem 1.5rem;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(201,164,74,0.14);
+    border-left: 3px solid var(--gold);
+  }
 
   .scan-verse-lbl {
     font-family: var(--font-head); font-size: 0.65rem;
     letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.4rem;
   }
 
-  /* verse display with ruby annotations above each syllable */
-  .verse-ruby {
-    padding: 1.6rem 2rem 1.4rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(201,164,74,0.14);
-    border-left: 3px solid var(--gold);
-    font-family: var(--font-body); font-style: italic;
-    font-size: 1.05rem; color: var(--ivory);
-    line-height: 3.4;
-    overflow-x: auto; white-space: nowrap;
+  .scan-latin {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--ivory);
+    line-height: 2.8;
+    letter-spacing: 0.02em;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
   }
 
-  .verse-ruby ruby { display: inline-ruby; }
-
-  .verse-ruby rt {
-    font-style: normal; font-size: 0.76rem;
-    font-family: monospace; text-align: center;
+  .scan-latin ruby {
+    ruby-align: center;
   }
 
-  .verse-ruby rt.long   { color: var(--gold); }
-  .verse-ruby rt.short  { color: var(--blue-muted); }
-  .verse-ruby rt.anceps { color: var(--ivory-dim); }
-
-  .elision { opacity: 0.45; }
-
-  .foot-sep {
-    color: rgba(201,164,74,0.45);
-    margin: 0 4px;
+  .scan-latin rt {
+    font-size: 0.78rem;
     font-style: normal;
+    font-family: monospace;
+    font-weight: 700;
+    ruby-align: center;
+    text-align: center;
   }
 
-  .caesura {
-    color: var(--gold);
-    margin: 0 5px;
-    font-style: normal;
-    font-size: 1.15rem;
+  .scan-latin rt.long  { color: var(--gold); }
+  .scan-latin rt.short { color: var(--blue-muted); }
+  .scan-latin rt.anc   { color: var(--ivory-dim); }
+
+  .scan-latin .foot-sep {
+    display: inline-block;
+    width: 1px; height: 1.1em;
+    background: rgba(201,164,74,0.3);
+    margin: 0 6px;
+    vertical-align: middle;
+  }
+
+  .scan-latin .elision {
+    opacity: 0.4;
+    font-size: 0.88em;
+  }
+
+  .scan-latin .caesura {
+    display: inline-block;
+    width: 2px; height: 1.1em;
+    background: rgba(201,164,74,0.5);
+    margin: 0 8px;
+    vertical-align: middle;
   }
 
   .foot-types {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    margin-top: 0.5rem; padding: 0 2rem;
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
   .ft-lbl {
-    font-family: var(--font-head); font-size: 0.6rem;
-    letter-spacing: 0.2em; text-transform: uppercase;
+    font-family: var(--font-head); font-size: 0.58rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid rgba(255,255,255,0.1);
   }
-  .ft-lbl.D { color: var(--gold-light); }
+  .ft-lbl.D { color: var(--gold-light); border-color: rgba(201,164,74,0.3); }
   .ft-lbl.P { color: var(--ivory-dim); }
+
+  @media (max-width: 960px) {
+    .scan-latin { font-size: 1.05rem; }
+    .scan-block { padding: 1.5rem; }
+  }
 
   /* ══════════════════════════════════════════════
      §4  GRAMMATIK
   ══════════════════════════════════════════════ */
   #grammatik {
     background: var(--navy);
-    border-top: 1px solid rgba(201,164,74,0.1);
   }
 
   .gram-grid {
@@ -612,7 +635,6 @@
   ══════════════════════════════════════════════ */
   #galerie {
     background: var(--navy);
-    border-top: 1px solid rgba(201,164,74,0.1);
     overflow: hidden;
   }
 
@@ -693,6 +715,33 @@
     width: 50px; height: 1px;
     background: rgba(201,164,74,0.3);
     margin: 2.2rem auto;
+  }
+
+  /* ══════════════════════════════════════════════
+     SMOOTH SECTION TRANSITIONS
+  ══════════════════════════════════════════════ */
+  #originaltext::before,
+  #grammatik::before,
+  #galerie::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--black), var(--navy));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  #metrik::before,
+  #schulausgabe::before,
+  #ueberden::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--navy), var(--black));
+    pointer-events: none;
+    z-index: 1;
   }
 
   /* ══════════════════════════════════════════════
@@ -962,7 +1011,6 @@
 
 <!-- ════════════════════════════════════════
      §3  METRISCHE ANALYSE
-     Verse 871–875 · ruby annotations
 ════════════════════════════════════════ -->
 <section id="metrik">
   <div class="container">
@@ -976,132 +1024,120 @@
     </p>
 
     <div class="legend-row reveal">
-      <div class="lg-item"><span class="lg-sym long">—</span><span>Länge</span></div>
-      <div class="lg-item"><span class="lg-sym short">∪</span><span>Kürze</span></div>
-      <div class="lg-item"><span class="lg-sym anc">×</span><span>Anceps (6. Fuß)</span></div>
-      <div class="lg-item"><span style="color:var(--gold-light);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">DAK</span><span>Daktylus — ∪ ∪</span></div>
-      <div class="lg-item"><span style="color:var(--ivory-dim);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">SP</span><span>Spondeus — —</span></div>
-      <div class="lg-item"><span style="opacity:.45;font-family:var(--font-body);font-style:italic;font-size:0.9rem">(x)</span><span>Elision</span></div>
-      <div class="lg-item"><span style="color:var(--gold)">‖</span><span>Zäsur</span></div>
+      <div class="lg-item">
+        <span class="lg-sym long">—</span>
+        <span>Länge (Syllaba longa)</span>
+      </div>
+      <div class="lg-item">
+        <span class="lg-sym short">∪</span>
+        <span>Kürze (Syllaba brevis)</span>
+      </div>
+      <div class="lg-item">
+        <span class="lg-sym anc">×</span>
+        <span>Anceps (frei im letzten Fuß)</span>
+      </div>
+      <div class="lg-item">
+        <span style="color:var(--gold-light);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">DAK</span>
+        <span>Daktylus — ∪ ∪</span>
+      </div>
+      <div class="lg-item">
+        <span style="color:var(--ivory-dim);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">SP</span>
+        <span>Spondeus — —</span>
+      </div>
     </div>
 
-    <!-- Vers 871: falsa pedum primis vestigia ponit in undis -->
-    <!-- fal(—) sa(∪) pe(∪) | dum(—) prī(—) | mīs(—) ves(—) | tī(∪) gi(∪) a(∪) | pō(—) nit(∪) in(∪) | un(—) dīs(×) -->
+    <!-- ═══════════════════════════════════════════════════
+         VERS 871: falsa pedum primis vestigia ponit in undis
+         Füße: DAK | SP | SP | DAK | DAK | — ×
+    ═══════════════════════════════════════════════════ -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 871 · falsa pedum primis vestigia ponit in undis</p>
-      <div class="verse-ruby">
-        <ruby>fal<rt class="long">—</rt></ruby><ruby>sa<rt class="short">∪</rt></ruby><ruby>pe<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>dum<rt class="long">—</rt></ruby><ruby>prī<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>mīs<rt class="long">—</rt></ruby><ruby>ves<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>tī<rt class="short">∪</rt></ruby><ruby>gi<rt class="short">∪</rt></ruby><ruby>a<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>pō<rt class="long">—</rt></ruby><ruby>nit<rt class="short">∪</rt></ruby><ruby>in<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>un<rt class="long">—</rt></ruby><ruby>dīs<rt class="anceps">×</rt></ruby>
+      <div class="scan-latin">
+        <ruby>fal<rt class="long">—</rt></ruby><ruby>sa<rt class="short">∪</rt></ruby> <ruby>pe<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>dum<rt class="long">—</rt></ruby> <ruby>prī<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>mīs<rt class="long">—</rt></ruby> <ruby>ves<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>tī<rt class="long">—</rt></ruby><ruby>gi<rt class="short">∪</rt></ruby><ruby>a<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>pō<rt class="long">—</rt></ruby><ruby>nit<rt class="short">∪</rt></ruby> <ruby>in<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>un<rt class="long">—</rt></ruby><ruby>dīs<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">1 DAK</span>
+        <span class="ft-lbl P">2 SP</span>
+        <span class="ft-lbl P">3 SP</span>
+        <span class="ft-lbl D">4 DAK</span>
+        <span class="ft-lbl D">5 DAK</span>
+        <span class="ft-lbl P">6 — ×</span>
       </div>
     </div>
 
-    <!-- Vers 872: inde abit ulterius mediique per aequora ponti -->
-    <!-- in(—) d(e)a(—) bit(—) | ul(—) te(∪) ri(∪) | us(—) me(∪) di(∪) | ī(—) que(—) per(—) | ae(∪) quo(∪) ra(∪) | pon(—) tī(×) -->
+    <!-- ═══════════════════════════════════════════════════
+         VERS 872: inde abit ulterius mediique per aequora ponti
+         Füße: DAK | SP | DAK | DAK | DAK | — ×
+    ═══════════════════════════════════════════════════ -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 872 · inde abit ulterius mediique per aequora ponti</p>
-      <div class="verse-ruby">
-        <ruby>in<rt class="long">—</rt></ruby><ruby>d<span class="elision">(e)</span>a<rt class="long">—</rt></ruby><ruby>bit<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>ul<rt class="long">—</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>ri<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>us<rt class="long">—</rt></ruby><ruby>me<rt class="short">∪</rt></ruby><ruby>di<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>ī<rt class="long">—</rt></ruby><ruby>que<rt class="long">—</rt></ruby><ruby>per<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>ae<rt class="short">∪</rt></ruby><ruby>quo<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>pon<rt class="long">—</rt></ruby><ruby>tī<rt class="anceps">×</rt></ruby>
+      <div class="scan-latin">
+        <ruby>in<rt class="long">—</rt></ruby><ruby>d<span class="elision">(e)</span>a<rt class="short">∪</rt></ruby><ruby>bit<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>ul<rt class="long">—</rt></ruby><ruby>te<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>ri<rt class="long">—</rt></ruby><ruby>us<rt class="short">∪</rt></ruby> <ruby>me<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>di<rt class="long">—</rt></ruby><ruby>ī<rt class="short">∪</rt></ruby><ruby>que<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>per<rt class="long">—</rt></ruby> <ruby>ae<rt class="short">∪</rt></ruby><ruby>quo<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>pon<rt class="long">—</rt></ruby><ruby>tī<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">1 DAK</span>
+        <span class="ft-lbl P">2 SP</span>
+        <span class="ft-lbl D">3 DAK</span>
+        <span class="ft-lbl D">4 DAK</span>
+        <span class="ft-lbl D">5 DAK</span>
+        <span class="ft-lbl P">6 — ×</span>
       </div>
     </div>
 
-    <!-- Vers 873: fert praedam. pavet haec litusque ablata relictum -->
-    <!-- fert(—) prae(—) | dam(—) ‖ pa(∪) vet(∪) | haec(—) lī(—) | tus(∪) qu(e)ab(∪) lā(—) | ta(∪) re(∪) | lic(—) tum(×) -->
+    <!-- ═══════════════════════════════════════════════════
+         VERS 873: fert praedam. pavet haec litusque ablata relictum
+         Füße: SP | DAK | DAK | SP | DAK | — ×
+    ═══════════════════════════════════════════════════ -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 873 · fert praedam. pavet haec litusque ablata relictum</p>
-      <div class="verse-ruby">
-        <ruby>fert<rt class="long">—</rt></ruby><ruby>prae<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>dam<rt class="long">—</rt></ruby><span class="caesura">‖</span><ruby>pa<rt class="short">∪</rt></ruby><ruby>vet<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>haec<rt class="long">—</rt></ruby><ruby>lī<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>tus<rt class="short">∪</rt></ruby><ruby>qu<span class="elision">(e)</span>ab<rt class="short">∪</rt></ruby><ruby>lā<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>ta<rt class="short">∪</rt></ruby><ruby>re<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>lic<rt class="long">—</rt></ruby><ruby>tum<rt class="anceps">×</rt></ruby>
+      <div class="scan-latin">
+        <ruby>fert<rt class="long">—</rt></ruby> <ruby>prae<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>dam<rt class="long">—</rt></ruby><span class="caesura"></span><ruby>pa<rt class="short">∪</rt></ruby><ruby>vet<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>haec<rt class="long">—</rt></ruby> <ruby>lī<rt class="short">∪</rt></ruby><ruby>tus<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>qu<span class="elision">(e)</span>ab<rt class="long">—</rt></ruby><ruby>lā<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>ta<rt class="long">—</rt></ruby> <ruby>re<rt class="short">∪</rt></ruby><ruby>lic<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>tum<rt class="long">—</rt></ruby><ruby> <rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
-        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl P">1 SP</span>
+        <span class="ft-lbl D">2 DAK</span>
+        <span class="ft-lbl D">3 DAK</span>
+        <span class="ft-lbl P">4 SP</span>
+        <span class="ft-lbl D">5 DAK</span>
+        <span class="ft-lbl P">6 — ×</span>
       </div>
     </div>
 
-    <!-- Vers 874: respicit et dextra cornum tenet, altera dorso -->
-    <!-- res(—) pi(∪) ci(∪) | t(et)(—) dex(—) | trā(—) cor(—) | num(∪) te(∪) net(—) | al(—) te(∪) ra(∪) | dor(—) sō(×) -->
+    <!-- ═══════════════════════════════════════════════════
+         VERS 874: respicit et dextra cornum tenet, altera dorso
+         Füße: DAK | SP | SP | DAK | DAK | — ×
+    ═══════════════════════════════════════════════════ -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 874 · respicit et dextra cornum tenet, altera dorso</p>
-      <div class="verse-ruby">
-        <ruby>res<rt class="long">—</rt></ruby><ruby>pi<rt class="short">∪</rt></ruby><ruby>ci<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby><span class="elision">t(et)</span><rt class="long">—</rt></ruby><ruby>dex<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>trā<rt class="long">—</rt></ruby><ruby>cor<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>num<rt class="short">∪</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>net<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>al<rt class="long">—</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>dor<rt class="long">—</rt></ruby><ruby>sō<rt class="anceps">×</rt></ruby>
+      <div class="scan-latin">
+        <ruby>res<rt class="long">—</rt></ruby><ruby>pi<rt class="short">∪</rt></ruby><ruby>ci<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>t<span class="elision">(et)</span><rt class="long">—</rt></ruby> <ruby>dex<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>trā<rt class="long">—</rt></ruby> <ruby>cor<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>num<rt class="long">—</rt></ruby> <ruby>te<rt class="short">∪</rt></ruby><ruby>net<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>al<rt class="long">—</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>dor<rt class="long">—</rt></ruby><ruby>sō<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">1 DAK</span>
+        <span class="ft-lbl P">2 SP</span>
+        <span class="ft-lbl P">3 SP</span>
+        <span class="ft-lbl D">4 DAK</span>
+        <span class="ft-lbl D">5 DAK</span>
+        <span class="ft-lbl P">6 — ×</span>
       </div>
     </div>
 
-    <!-- Vers 875: inposita est; tremulae sinuantur flamine vestes -->
-    <!-- in(—) po(∪) si(∪) | t(a)est(—) tre(—) | mu(∪) lae(∪) si(—) | nu(∪) an(—) tur(—) | flā(—) mi(∪) ne(∪) | ves(—) tēs(×) -->
+    <!-- ═══════════════════════════════════════════════════
+         VERS 875: inposita est; tremulae sinuantur flamine vestes
+         Füße: DAK | DAK | DAK | SP | DAK | — ×
+    ═══════════════════════════════════════════════════ -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 875 · inposita est; tremulae sinuantur flamine vestes</p>
-      <div class="verse-ruby">
-        <ruby>in<rt class="long">—</rt></ruby><ruby>po<rt class="short">∪</rt></ruby><ruby>si<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby><span class="elision">t(a)est</span><rt class="long">—</rt></ruby><ruby>tre<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>mu<rt class="short">∪</rt></ruby><ruby>lae<rt class="short">∪</rt></ruby><ruby>si<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>nu<rt class="short">∪</rt></ruby><ruby>an<rt class="long">—</rt></ruby><ruby>tur<rt class="long">—</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>flā<rt class="long">—</rt></ruby><ruby>mi<rt class="short">∪</rt></ruby><ruby>ne<rt class="short">∪</rt></ruby>
-        <span class="foot-sep">|</span>
-        <ruby>ves<rt class="long">—</rt></ruby><ruby>tēs<rt class="anceps">×</rt></ruby>
+      <div class="scan-latin">
+        <ruby>in<rt class="long">—</rt></ruby><ruby>po<rt class="short">∪</rt></ruby><ruby>si<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>t<span class="elision">(a)</span>est<rt class="long">—</rt></ruby> <ruby>tre<rt class="short">∪</rt></ruby><ruby>mu<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>lae<rt class="long">—</rt></ruby> <ruby>si<rt class="short">∪</rt></ruby><ruby>nu<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>an<rt class="long">—</rt></ruby><ruby>tur<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>flā<rt class="long">—</rt></ruby><ruby>mi<rt class="short">∪</rt></ruby><ruby>ne<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>ves<rt class="long">—</rt></ruby><ruby>tēs<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">1 DAK</span>
+        <span class="ft-lbl D">2 DAK</span>
+        <span class="ft-lbl D">3 DAK</span>
+        <span class="ft-lbl P">4 SP</span>
+        <span class="ft-lbl D">5 DAK</span>
+        <span class="ft-lbl P">6 — ×</span>
       </div>
     </div>
 
@@ -1522,26 +1558,44 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// ── Parallax hero ───────────────────────────────────────────────
+// ── Parallax hero + fadeout ─────────────────────────────────────
 const heroBg = document.getElementById('heroBg');
+const heroContent = document.querySelector('.hero-content');
+let ticking = false;
 window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  if (y < window.innerHeight) {
-    heroBg.style.transform = `scale(1.08) translateY(${y * 0.28}px)`;
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroBg.style.transform = 'scale(1.08) translateY(' + (y * 0.22) + 'px)';
+        if (heroContent) {
+          heroContent.style.opacity = Math.max(0, 1 - (y / (window.innerHeight * 0.55)));
+        }
+      }
+      ticking = false;
+    });
+    ticking = true;
   }
 }, { passive: true });
 
-// ── Scroll reveal ───────────────────────────────────────────────
+// ── Staggered scroll reveal ─────────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.classList.add('in');
+      const delay = parseInt(e.target.dataset.delay || '0', 10);
+      setTimeout(() => { e.target.classList.add('in'); }, delay);
       observer.unobserve(e.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal, .reveal-left').forEach((el) => {
+  const parent = el.parentElement;
+  const siblings = Array.from(parent.querySelectorAll(':scope > .reveal, :scope > .reveal-left'));
+  const idx = siblings.indexOf(el);
+  el.dataset.delay = String(idx * 120);
+  observer.observe(el);
+});
 
 // ── Text toggle ──────────────────────────────────────────────────
 function showPanel(key) {
