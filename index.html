@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iuppiter et Europa · Ovid, Metamorphosen II, 833–875</title>
+  <meta name="description" content="Eine digitale Schulausgabe zu Ovids Metamorphosen II, 833–875 – Iuppiter und Europa. Mit metrischer Analyse, grammatischen Kommentaren und Kunstgalerie.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+  /* ══════════════════════════════════════════════
+     RESET & ROOT
+  ══════════════════════════════════════════════ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black:        #07060a;
+    --navy:         #08111f;
+    --gold:         #c9a44a;
+    --gold-light:   #e8c96c;
+    --gold-dim:     #7a6228;
+    --gold-glow:    rgba(201,164,74,0.15);
+    --ivory:        #f0e8d6;
+    --ivory-dim:    #b8aa95;
+    --crimson:      #5c0f1e;
+    --blue-muted:   #7ab0d4;
+    --font-display: 'Cinzel Decorative', serif;
+    --font-head:    'Cinzel', serif;
+    --font-body:    'EB Garamond', serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 18px; }
+
+  body {
+    background: var(--black);
+    color: var(--ivory);
+    font-family: var(--font-body);
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+
+  /* ══════════════════════════════════════════════
+     NAV
+  ══════════════════════════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.8rem 5rem;
+    transition: all 0.5s ease;
+  }
+
+  nav.scrolled {
+    background: rgba(7,6,10,0.96);
+    backdrop-filter: blur(12px);
+    padding: 1rem 5rem;
+    border-bottom: 1px solid rgba(201,164,74,0.18);
+  }
+
+  .nav-brand {
+    font-family: var(--font-head);
+    font-size: 0.72rem; letter-spacing: 0.45em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-head); font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ivory-dim); text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ══════════════════════════════════════════════
+     HERO
+  ══════════════════════════════════════════════ */
+  .hero {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Tizian_-_Raub_der_Europa_-_MFA_Boston.jpg/1280px-Tizian_-_Raub_der_Europa_-_MFA_Boston.jpg');
+    background-size: cover; background-position: center 30%;
+    transform: scale(1.08); will-change: transform;
+  }
+
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(7,6,10,0.55) 0%,
+      rgba(7,6,10,0.4) 40%,
+      rgba(7,6,10,0.75) 70%,
+      rgba(7,6,10,1) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative; text-align: center;
+    max-width: 950px; padding: 0 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-head); font-size: 0.7rem;
+    letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase;
+    display: block; margin-bottom: 2.2rem;
+    opacity: 0; animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 8.5vw, 6.5rem);
+    line-height: 1.08; color: var(--ivory);
+    margin-bottom: 1.8rem; letter-spacing: 0.02em;
+    opacity: 0; animation: fadeUp 1.1s 0.9s forwards;
+  }
+  .hero-title em { color: var(--gold); font-style: normal; }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem); color: var(--ivory-dim);
+    font-style: italic; margin-bottom: 3.5rem;
+    opacity: 0; animation: fadeUp 1s 1.2s forwards;
+  }
+
+  .hero-btn {
+    display: inline-block; padding: 0.85rem 2.8rem;
+    border: 1px solid var(--gold);
+    font-family: var(--font-head); font-size: 0.72rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none; transition: all 0.35s;
+    opacity: 0; animation: fadeUp 1s 1.5s forwards;
+  }
+  .hero-btn:hover { background: var(--gold); color: var(--black); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0; animation: fadeIn 1s 2.2s forwards;
+  }
+
+  .scroll-bar {
+    width: 1px; height: 55px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  .scroll-lbl {
+    font-family: var(--font-head); font-size: 0.58rem;
+    letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+  }
+
+  /* ══════════════════════════════════════════════
+     SECTIONS / GLOBAL
+  ══════════════════════════════════════════════ */
+  section { padding: 9rem 0; position: relative; }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 3.5rem; }
+
+  .sec-label {
+    font-family: var(--font-head); font-size: 0.65rem;
+    letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase;
+    display: block; margin-bottom: 0.9rem;
+  }
+
+  .sec-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.9rem, 4vw, 3.2rem);
+    line-height: 1.2; color: var(--ivory);
+    margin-bottom: 3.5rem;
+  }
+
+  .sec-title::after {
+    content: ''; display: block; width: 55px; height: 2px;
+    background: var(--gold); margin-top: 1.1rem;
+  }
+
+  /* reveal on scroll */
+  .reveal {
+    opacity: 0; transform: translateY(38px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-left {
+    opacity: 0; transform: translateX(-40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal-left.in { opacity: 1; transform: translateX(0); }
+
+  /* ══════════════════════════════════════════════
+     §1  INHALTSANGABE
+  ══════════════════════════════════════════════ */
+  #inhaltsangabe { background: var(--black); }
+
+  .story-grid {
+    display: grid; grid-template-columns: 0.85fr 1fr;
+    gap: 6rem; align-items: center;
+  }
+
+  .story-img-wrap {
+    position: relative;
+    aspect-ratio: 3/4; overflow: hidden;
+  }
+
+  .story-img-wrap::before {
+    content: ''; position: absolute;
+    inset: -1px; border: 1px solid rgba(201,164,74,0.35);
+    z-index: 2; pointer-events: none;
+  }
+
+  .story-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+    filter: sepia(18%) contrast(1.08) brightness(0.92);
+    transition: transform 0.7s ease, filter 0.7s ease; display: block;
+  }
+  .story-img-wrap:hover img {
+    transform: scale(1.06);
+    filter: sepia(6%) contrast(1.05) brightness(0.96);
+  }
+
+  .img-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2.5rem 1.2rem 1rem;
+    background: linear-gradient(transparent, rgba(7,6,10,0.92));
+    font-size: 0.75rem; color: var(--ivory-dim); font-style: italic;
+    z-index: 3;
+  }
+
+  .story-text p { font-size: 1.13rem; line-height: 2.0; margin-bottom: 1.6rem; color: var(--ivory); }
+
+  .dropcap::first-letter {
+    font-family: var(--font-display);
+    font-size: 4.2rem; line-height: 0.78;
+    float: left; margin: 0.08em 0.12em 0 0;
+    color: var(--gold);
+  }
+
+  .source-note {
+    font-family: var(--font-head); font-size: 0.68rem;
+    letter-spacing: 0.15em; color: var(--gold-dim);
+    text-transform: uppercase; border-top: 1px solid rgba(201,164,74,0.2);
+    padding-top: 1.2rem; margin-top: 1.5rem;
+  }
+
+  /* ══════════════════════════════════════════════
+     §2  ORIGINALTEXT (Toggle)
+  ══════════════════════════════════════════════ */
+  #originaltext {
+    background: var(--navy);
+    border-top: 1px solid rgba(201,164,74,0.12);
+    border-bottom: 1px solid rgba(201,164,74,0.12);
+  }
+
+  .toggle-bar {
+    display: flex; width: fit-content;
+    border: 1px solid rgba(201,164,74,0.35);
+    margin-bottom: 3.5rem;
+  }
+
+  .tbtn {
+    padding: 0.65rem 2.2rem;
+    font-family: var(--font-head); font-size: 0.68rem;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    background: transparent; color: var(--ivory-dim);
+    transition: all 0.3s;
+  }
+  .tbtn.on { background: var(--gold); color: var(--black); }
+
+  .text-panel { display: none; }
+  .text-panel.on { display: block; }
+
+  .verse-list { list-style: none; }
+
+  .v-line {
+    display: flex; gap: 2.2rem; align-items: baseline;
+    padding: 0.28rem 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.2s;
+  }
+  .v-line:hover { background: rgba(201,164,74,0.05); }
+
+  .v-num {
+    font-family: var(--font-head); font-size: 0.65rem;
+    color: var(--gold-dim); min-width: 2.4rem; padding-top: 0.2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .v-lat { font-style: italic; color: var(--ivory); font-size: 1.05rem; }
+  .v-de  { color: var(--ivory-dim); font-size: 1.0rem; }
+
+  .parallel-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+  }
+
+  .par-col h3 {
+    font-family: var(--font-head); font-size: 0.68rem;
+    letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 2rem; padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(201,164,74,0.25);
+  }
+
+  /* ══════════════════════════════════════════════
+     §3  METRISCHE ANALYSE
+  ══════════════════════════════════════════════ */
+  #metrik { background: var(--black); }
+
+  .meter-intro {
+    font-size: 1.05rem; color: var(--ivory-dim); max-width: 720px;
+    margin-bottom: 3rem;
+  }
+
+  .legend-row {
+    display: flex; gap: 3rem; flex-wrap: wrap;
+    margin-bottom: 4rem; padding: 1.4rem 2rem;
+    border: 1px solid rgba(201,164,74,0.15);
+    border-left: 3px solid var(--gold);
+    background: rgba(201,164,74,0.04);
+  }
+
+  .lg-item {
+    display: flex; align-items: center; gap: 0.9rem;
+    font-size: 0.9rem; color: var(--ivory-dim);
+  }
+
+  .lg-sym {
+    font-size: 1.35rem; line-height: 1;
+    font-family: var(--font-body); font-weight: 600;
+  }
+  .lg-sym.long  { color: var(--gold); }
+  .lg-sym.short { color: var(--blue-muted); }
+  .lg-sym.anc   { color: var(--ivory-dim); }
+
+  /* scan block */
+  .scan-block { margin-bottom: 3.5rem; }
+
+  .scan-verse-lbl {
+    font-family: var(--font-head); font-size: 0.65rem;
+    letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 0.9rem;
+  }
+
+  .scan-row {
+    display: flex; flex-wrap: nowrap; align-items: flex-end;
+    gap: 0; overflow-x: auto;
+    padding: 1.5rem 2rem 1.2rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,164,74,0.14);
+    border-left: 3px solid var(--gold);
+  }
+
+  .scan-foot {
+    display: flex; align-items: flex-end;
+    position: relative;
+    padding-right: 14px; margin-right: 6px;
+  }
+
+  .scan-foot::after {
+    content: '|';
+    position: absolute; right: 0; bottom: 2px;
+    color: rgba(201,164,74,0.4); font-size: 1.1rem; line-height: 1;
+  }
+  .scan-foot:last-child { padding-right: 0; margin-right: 0; }
+  .scan-foot:last-child::after { display: none; }
+
+  .scan-syl {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 5px; padding: 0 4px;
+  }
+
+  .s-mark {
+    font-size: 0.92rem; line-height: 1; font-family: monospace;
+  }
+  .s-mark.L { color: var(--gold); }
+  .s-mark.S { color: var(--blue-muted); }
+  .s-mark.X { color: var(--ivory-dim); }
+
+  .s-text {
+    font-family: var(--font-body); font-style: italic;
+    font-size: 0.98rem; color: var(--ivory); white-space: nowrap;
+  }
+
+  .foot-types {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 0.5rem; padding: 0 2rem;
+  }
+
+  .ft-lbl {
+    font-family: var(--font-head); font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .ft-lbl.D { color: var(--gold-light); }
+  .ft-lbl.P { color: var(--ivory-dim); }
+
+  /* ══════════════════════════════════════════════
+     §4  GRAMMATIK
+  ══════════════════════════════════════════════ */
+  #grammatik {
+    background: var(--navy);
+    border-top: 1px solid rgba(201,164,74,0.1);
+  }
+
+  .gram-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: start;
+  }
+
+  .hi-box {
+    padding: 1.8rem 2rem;
+    background: var(--gold-glow);
+    border: 1px solid rgba(201,164,74,0.3);
+    border-left: 4px solid var(--gold);
+    margin-bottom: 2.2rem;
+  }
+
+  .hi-box .lat-q {
+    font-family: var(--font-body); font-style: italic;
+    font-size: 1.25rem; color: var(--ivory); line-height: 1.75;
+    margin-bottom: 0.4rem;
+  }
+
+  .hi-box .lat-hi { color: var(--gold); font-weight: 600; }
+
+  .gram-note {
+    font-size: 0.78rem; color: var(--ivory-dim);
+    letter-spacing: 0.05em; font-style: italic;
+  }
+
+  .gram-body p { font-size: 1.05rem; color: var(--ivory); margin-bottom: 1.3rem; line-height: 1.95; }
+  .gram-body .term { color: var(--gold); font-style: italic; }
+  .gram-body .lat  { font-style: italic; color: var(--ivory); }
+
+  .gram-table {
+    width: 100%; border-collapse: collapse; margin: 1.8rem 0; font-size: 0.92rem;
+  }
+  .gram-table th {
+    font-family: var(--font-head); font-size: 0.65rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); padding: 0.75rem 1rem; text-align: left;
+    border-bottom: 1px solid rgba(201,164,74,0.3);
+  }
+  .gram-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--ivory);
+  }
+  .gram-table tr:hover td { background: rgba(201,164,74,0.04); }
+  .gram-table .lat-it { font-style: italic; }
+
+  .hyp-vis {
+    padding: 2rem; text-align: center;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.09);
+    font-size: 1.25rem; font-style: italic;
+    line-height: 1.9; margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .hyp-arrow {
+    display: block; font-style: normal;
+    font-size: 0.7rem; font-family: var(--font-head);
+    letter-spacing: 0.15em; color: var(--gold);
+    margin-top: 0.8rem;
+  }
+
+  /* ══════════════════════════════════════════════
+     §5  KOMMENTIERTE SCHULAUSGABE
+  ══════════════════════════════════════════════ */
+  #schulausgabe { background: var(--black); }
+
+  .edition-wrap {
+    display: grid; grid-template-columns: 1fr 310px;
+    gap: 4rem; align-items: start;
+  }
+
+  .edition-page {
+    border: 1px solid rgba(201,164,74,0.22);
+    padding: 3.2rem 3rem;
+    background: rgba(255,255,255,0.015);
+  }
+
+  .ed-head {
+    text-align: center;
+    padding-bottom: 2rem; margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(201,164,74,0.2);
+  }
+
+  .ed-head-title {
+    font-family: var(--font-display); font-size: 1.1rem;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+
+  .ed-head-sub {
+    font-family: var(--font-head); font-size: 0.65rem;
+    letter-spacing: 0.35em; color: var(--ivory-dim); text-transform: uppercase;
+  }
+
+  .ann-line {
+    display: flex; gap: 1.1rem;
+    padding: 0.35rem 0.3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.2s; align-items: baseline;
+    position: relative;
+  }
+  .ann-line:hover { background: rgba(201,164,74,0.045); }
+
+  .al-num {
+    font-family: var(--font-head); font-size: 0.62rem;
+    color: var(--gold-dim); min-width: 2.2rem; padding-top: 0.2rem;
+  }
+
+  .al-text {
+    font-style: italic; font-size: 1.0rem;
+    color: var(--ivory); line-height: 1.85;
+  }
+
+  /* vocab / grammar tooltips */
+  .vw, .gw {
+    border-bottom-style: dotted; border-bottom-width: 1px;
+    cursor: help; position: relative;
+  }
+  .vw { color: var(--gold); border-bottom-color: var(--gold); }
+  .gw { color: var(--blue-muted); border-bottom-color: var(--blue-muted); }
+
+  .tt {
+    display: none; position: absolute; bottom: calc(100% + 4px); left: 0;
+    background: rgba(7,6,10,0.97);
+    border: 1px solid rgba(201,164,74,0.35);
+    padding: 0.45rem 0.8rem;
+    font-size: 0.78rem; font-style: normal; color: var(--ivory);
+    white-space: nowrap; z-index: 200; pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .vw:hover .tt, .gw:hover .tt { display: block; }
+
+  .de-trans-block {
+    margin-top: 2.5rem; padding-top: 2rem;
+    border-top: 1px solid rgba(201,164,74,0.18);
+  }
+  .de-trans-block h4 {
+    font-family: var(--font-head); font-size: 0.65rem;
+    letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .de-trans-block p {
+    color: var(--ivory-dim); font-style: italic;
+    font-size: 1.0rem; line-height: 1.9;
+  }
+
+  /* sidebar */
+  .ed-sidebar {}
+
+  .sb-card {
+    background: rgba(201,164,74,0.06);
+    border: 1px solid rgba(201,164,74,0.18);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .sb-card h4 {
+    font-family: var(--font-head); font-size: 0.65rem;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(201,164,74,0.2);
+  }
+
+  .vocab-item { margin-bottom: 0.9rem; font-size: 0.88rem; }
+  .vocab-w { font-style: italic; color: var(--gold); display: block; }
+  .vocab-d { color: var(--ivory-dim); font-size: 0.82rem; }
+
+  .aufgabe-card {
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.09);
+    margin-bottom: 1.4rem;
+  }
+
+  .auf-num {
+    font-family: var(--font-head); font-size: 0.62rem;
+    letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase;
+    display: block; margin-bottom: 0.5rem;
+  }
+
+  .auf-text { font-size: 0.93rem; color: var(--ivory); margin-bottom: 1rem; }
+
+  .eh-toggle {
+    font-family: var(--font-head); font-size: 0.62rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); background: none;
+    border: 1px solid rgba(201,164,74,0.38);
+    padding: 0.38rem 1rem; cursor: pointer; transition: all 0.3s;
+  }
+  .eh-toggle:hover { background: rgba(201,164,74,0.1); }
+
+  .erwartung {
+    display: none; margin-top: 1rem; padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.84rem; color: var(--ivory-dim); line-height: 1.7;
+  }
+  .erwartung.open { display: block; }
+
+  /* ══════════════════════════════════════════════
+     §6  GALERIE
+  ══════════════════════════════════════════════ */
+  #galerie {
+    background: var(--navy);
+    border-top: 1px solid rgba(201,164,74,0.1);
+    overflow: hidden;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-rows: 340px 260px;
+    gap: 0.6rem; margin-top: 3rem;
+  }
+
+  .gal-item {
+    position: relative; overflow: hidden; cursor: zoom-in;
+  }
+  .gal-item:nth-child(1) { grid-row: span 2; }
+
+  .gal-item img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: sepia(12%) contrast(1.05) brightness(0.88);
+    transition: transform 0.7s ease, filter 0.7s ease;
+  }
+  .gal-item:hover img {
+    transform: scale(1.07);
+    filter: sepia(0%) contrast(1.02) brightness(0.96);
+  }
+
+  .gal-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 3rem 1.4rem 1.2rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.88));
+    transform: translateY(101%); transition: transform 0.4s ease;
+  }
+  .gal-item:hover .gal-overlay { transform: translateY(0); }
+
+  .gal-title {
+    font-family: var(--font-head); font-size: 0.82rem;
+    color: var(--ivory); margin-bottom: 0.25rem;
+  }
+  .gal-meta { font-size: 0.72rem; color: var(--ivory-dim); font-style: italic; }
+
+  /* ══════════════════════════════════════════════
+     §7  ÜBER DEN MYTHOS HINAUS  (PLACEHOLDER)
+  ══════════════════════════════════════════════ */
+  #ueberden { background: var(--black); }
+
+  /* ─── PLACEHOLDER: ersetze den Inhalt im Block unten ─── */
+  .placeholder-box {
+    border: 2px dashed rgba(201,164,74,0.28);
+    padding: 5rem 3rem; text-align: center;
+    max-width: 780px; margin: 0 auto;
+  }
+
+  .ph-icon { font-size: 2.8rem; margin-bottom: 1.2rem; opacity: 0.45; }
+  .ph-title {
+    font-family: var(--font-head); font-size: 0.72rem;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--ivory-dim); margin-bottom: 0.6rem;
+  }
+  .ph-note {
+    font-size: 0.82rem; color: var(--gold-dim); font-style: italic;
+  }
+  /* ─── ENDE PLACEHOLDER ─── */
+
+  /* ══════════════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════════════ */
+  footer {
+    background: rgba(0,0,0,0.6);
+    border-top: 1px solid rgba(201,164,74,0.12);
+    padding: 4.5rem 0 2.5rem; text-align: center;
+  }
+
+  .ft-brand {
+    font-family: var(--font-display); font-size: 1.4rem;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+
+  .ft-text { font-size: 0.85rem; color: var(--ivory-dim); line-height: 1.8; }
+
+  .ft-div {
+    width: 50px; height: 1px;
+    background: rgba(201,164,74,0.3);
+    margin: 2.2rem auto;
+  }
+
+  /* ══════════════════════════════════════════════
+     ANIMATIONS
+  ══════════════════════════════════════════════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+  }
+
+  /* ══════════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════════ */
+  @media (max-width: 960px) {
+    nav { padding: 1.5rem 2rem; }
+    nav.scrolled { padding: 0.9rem 2rem; }
+    .nav-links { display: none; }
+
+    section { padding: 6rem 0; }
+    .container { padding: 0 1.8rem; }
+
+    .story-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+    .story-img-wrap { aspect-ratio: 16/9; }
+
+    .gram-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+    .edition-wrap { grid-template-columns: 1fr; }
+    .parallel-cols { grid-template-columns: 1fr; gap: 0; }
+
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+    .gal-item:nth-child(1) { grid-row: span 1; grid-column: span 2; }
+
+    .scan-row { overflow-x: auto; }
+  }
+
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gal-item:nth-child(1) { grid-column: span 1; }
+    .hero-title { font-size: 2.4rem; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════ -->
+<nav id="nav">
+  <a class="nav-brand" href="#">Ovid · Metamorphosen II</a>
+  <ul class="nav-links">
+    <li><a href="#inhaltsangabe">Mythos</a></li>
+    <li><a href="#originaltext">Originaltext</a></li>
+    <li><a href="#metrik">Metrik</a></li>
+    <li><a href="#grammatik">Grammatik</a></li>
+    <li><a href="#schulausgabe">Schulausgabe</a></li>
+    <li><a href="#galerie">Kunst</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<header class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Ovid · Metamorphosen · Liber II · Verse 833–875</span>
+    <h1 class="hero-title"><em>Iuppiter</em><br>et Europa</h1>
+    <p class="hero-sub">„Maiestate sua formam minuente…" — Er verbirgt sein Göttliches im Fell des Stiers</p>
+    <a href="#inhaltsangabe" class="hero-btn">Zum Mythos</a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-bar"></div>
+    <span class="scroll-lbl">Scrollen</span>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════
+     §1  INHALTSANGABE
+════════════════════════════════════════ -->
+<section id="inhaltsangabe">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-img-wrap reveal-left">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Peter_Paul_Rubens_-_The_Rape_of_Europa_-_Google_Art_Project.jpg/800px-Peter_Paul_Rubens_-_The_Rape_of_Europa_-_Google_Art_Project.jpg"
+          alt="Peter Paul Rubens – Der Raub der Europa, ca. 1628"
+          loading="lazy"
+        >
+        <p class="img-caption">Peter Paul Rubens · Der Raub der Europa · ca. 1628 · Prado, Madrid</p>
+      </div>
+
+      <div class="story-text reveal">
+        <span class="sec-label">§ 1 · Inhaltsangabe</span>
+        <h2 class="sec-title">Der listige Gott<br>und die Königstochter</h2>
+
+        <p class="dropcap">Jupiter verliebt sich in die Königstochter Europa und schmiedet einen geheimen Plan. Er lässt die königliche Rinderherde genau an den Strand treiben, an dem Europa oft mit ihren Freundinnen spielt.</p>
+
+        <p>Um ihr nah zu kommen, legt der Göttervater seine wahre Gestalt ab und verwandelt sich in einen wunderschönen und schneeweißen Stier. Er wirkt dabei so friedlich, dass Europa schnell ihre anfängliche Angst verliert. Sie streichelt das imposante Tier, füttert es mit Blumen und setzt sich schließlich völlig ahnungslos auf seinen Rücken.</p>
+
+        <p>Genau darauf hat Jupiter gewartet. Er geht sofort ins Wasser und schwimmt mit dem verängstigten Mädchen aufs offene Meer hinaus.</p>
+
+        <p class="source-note">Ovidius Naso, Metamorphōsēon Libri XV · Buch II, Verse 833–875</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §2  ORIGINALTEXT (Toggle)
+════════════════════════════════════════ -->
+<section id="originaltext">
+  <div class="container">
+    <span class="sec-label">§ 2 · Text</span>
+    <h2 class="sec-title reveal">Lateinischer Originaltext<br>mit deutscher Übersetzung</h2>
+
+    <div class="toggle-bar reveal" role="group" aria-label="Textansicht wählen">
+      <button class="tbtn on" id="btn-lat" onclick="showPanel('lat')">Latein</button>
+      <button class="tbtn"    id="btn-de"  onclick="showPanel('de')">Deutsch</button>
+      <button class="tbtn"    id="btn-par" onclick="showPanel('par')">Parallel</button>
+    </div>
+
+    <!-- Latein -->
+    <div class="text-panel on" id="panel-lat">
+      <ul class="verse-list">
+        <li class="v-line"><span class="v-num">833</span><span class="v-lat">Iamque deus posita fallacis imagine tauri</span></li>
+        <li class="v-line"><span class="v-num">834</span><span class="v-lat">se confessus erat Dictaeaque rura tenebat,</span></li>
+        <li class="v-line"><span class="v-num">835</span><span class="v-lat">cum pater ignorans Europam quaerit et oris</span></li>
+        <li class="v-line"><span class="v-num">836</span><span class="v-lat">exsilio multisque iubet punire Cadmum</span></li>
+        <li class="v-line"><span class="v-num">837</span><span class="v-lat">inventam. Tellus aliud disservet Iovique</span></li>
+        <li class="v-line"><span class="v-num">838</span><span class="v-lat">caelestes animos coniunx oblivia ponis?</span></li>
+        <li class="v-line"><span class="v-num">839</span><span class="v-lat">Nondum finieramos, et iam de corpore nymphis</span></li>
+        <li class="v-line"><span class="v-num">840</span><span class="v-lat">exceptas inter radios solis apertos</span></li>
+        <li class="v-line"><span class="v-num">841</span><span class="v-lat">quaerere Europam iussis. Ergo bona numina produnt</span></li>
+        <li class="v-line"><span class="v-num">842</span><span class="v-lat">paterque deos scelus. Iuppiter interim</span></li>
+        <li class="v-line"><span class="v-num">843</span><span class="v-lat">aethera iactatis aquilas effecit in alto.</span></li>
+        <li class="v-line"><span class="v-num">844</span><span class="v-lat">Maiestate sua formam minuente relictis</span></li>
+        <li class="v-line"><span class="v-num">845</span><span class="v-lat">sceptris et facies, quam caelo possedit honesto,</span></li>
+        <li class="v-line"><span class="v-num">846</span><span class="v-lat">induitur falsae vultum mentita iuvencae.</span></li>
+        <li class="v-line"><span class="v-num">847</span><span class="v-lat">Inter virgineas igitur Saturnius ibat</span></li>
+        <li class="v-line"><span class="v-num">848</span><span class="v-lat">delituit gregibus Sidonidas inque iuvencas</span></li>
+        <li class="v-line"><span class="v-num">849</span><span class="v-lat">mirus et ut venerat viridi pascebatur in herba.</span></li>
+        <li class="v-line"><span class="v-num">850</span><span class="v-lat">Quem sic Europae placuit forma benigna,</span></li>
+        <li class="v-line"><span class="v-num">851</span><span class="v-lat">et qui nec vultum servabat taurus in una:</span></li>
+        <li class="v-line"><span class="v-num">852</span><span class="v-lat">sed modo tergebat lingua sua terga iuvencis</span></li>
+        <li class="v-line"><span class="v-num">853</span><span class="v-lat">modo petebat humo morem similis pecori,</span></li>
+        <li class="v-line"><span class="v-num">854</span><span class="v-lat">modo per herbas errabat modo socia iungit</span></li>
+        <li class="v-line"><span class="v-num">855</span><span class="v-lat">colla iugo. Rupit vincula servitii tandem,</span></li>
+        <li class="v-line"><span class="v-num">856</span><span class="v-lat">ut sua rura deus ineuntis aequoris auro</span></li>
+        <li class="v-line"><span class="v-num">857</span><span class="v-lat">tingit et in virides abit ire per undas.</span></li>
+        <li class="v-line"><span class="v-num">858</span><span class="v-lat">Prima quidem dubitans, ne mersus ab aequore taurus,</span></li>
+        <li class="v-line"><span class="v-num">859</span><span class="v-lat">mox aude et taurum dorso rexisse iuvencam.</span></li>
+        <li class="v-line"><span class="v-num">860</span><span class="v-lat">Ut facit, et placidis tumescunt marmora ponto,</span></li>
+        <li class="v-line"><span class="v-num">861</span><span class="v-lat">et timet et plus est ne quid, virgo, timeas.</span></li>
+        <li class="v-line"><span class="v-num">862</span><span class="v-lat">Illa metu primo territa cornu tetendit</span></li>
+        <li class="v-line"><span class="v-num">863</span><span class="v-lat">et taurum stupefacta sui videt ora coloris.</span></li>
+        <li class="v-line"><span class="v-num">864</span><span class="v-lat">Pectore nunc toto, nunc surgit in arida colla</span></li>
+        <li class="v-line"><span class="v-num">865</span><span class="v-lat">incumbit. Sequitur, ponto qua nata, dextra</span></li>
+        <li class="v-line"><span class="v-num">866</span><span class="v-lat">retro flexa manum cornum tenet, altera dorso</span></li>
+        <li class="v-line"><span class="v-num">867</span><span class="v-lat">inposita; tremulae sinuantur flamine vestes.</span></li>
+        <li class="v-line"><span class="v-num">868</span><span class="v-lat">ausa est quoque regia virgo</span></li>
+        <li class="v-line"><span class="v-num">869</span><span class="v-lat">nescia, quem premeret, tergo considere tauri:</span></li>
+        <li class="v-line"><span class="v-num">870</span><span class="v-lat">cum deus a terra siccoque a litore sensim</span></li>
+        <li class="v-line"><span class="v-num">871</span><span class="v-lat">falsa pedum primis vestigia ponit in undis,</span></li>
+        <li class="v-line"><span class="v-num">872</span><span class="v-lat">inde abit ulterius mediique per aequora ponti</span></li>
+        <li class="v-line"><span class="v-num">873</span><span class="v-lat">fert praedam. pavet haec litusque ablata relictum</span></li>
+        <li class="v-line"><span class="v-num">874</span><span class="v-lat">respicit et dextra cornum tenet, altera dorso</span></li>
+        <li class="v-line"><span class="v-num">875</span><span class="v-lat">inposita est; tremulae sinuantur flamine vestes.</span></li>
+      </ul>
+    </div>
+
+    <!-- Deutsch -->
+    <div class="text-panel" id="panel-de">
+      <ul class="verse-list">
+        <li class="v-line"><span class="v-num">833</span><span class="v-de">Schon hatte der Gott, die täuschende Gestalt des Stiers ablegend,</span></li>
+        <li class="v-line"><span class="v-num">844</span><span class="v-de">Da seine Majestät die Gestalt mindert, verlässt er das Szepter und das Ansehen, das er im ehrbaren Himmel besessen hat, und nimmt das Aussehen einer vorgetäuschten Kuh an.</span></li>
+        <li class="v-line"><span class="v-num">847</span><span class="v-de">So zog der Saturnier also unter jungfräulichen Herden in Sidon umher und verbarg sich zwischen den Färsen, wundersam anzusehen, und weidete auf grünem Gras, wie er es gewohnt war.</span></li>
+        <li class="v-line"><span class="v-num">862</span><span class="v-de">Jene, anfangs vor Angst erschrocken, streckte das Horn aus und sah staunend das Antlitz des Stiers in ihrer Farbe.</span></li>
+        <li class="v-line"><span class="v-num">868</span><span class="v-de">Es wagte die Königstochter sogar, ohne zu wissen, auf wem sie ritt, sich auf den Rücken des Stieres zu setzen.</span></li>
+        <li class="v-line"><span class="v-num">870</span><span class="v-de">Da strebt der Gott allmählich vom Festland und dem trockenen Strand hinweg und setzt seine Füße trügerisch ein wenig ins Wasser;</span></li>
+        <li class="v-line"><span class="v-num">872</span><span class="v-de">dann entfernt er sich weiter und trägt seine Beute mitten über die Meeresfläche.</span></li>
+        <li class="v-line"><span class="v-num">873</span><span class="v-de">Sie ängstigt sich und blickt, die Entführte, zum Strand zurück, den sie verlassen hat.</span></li>
+        <li class="v-line"><span class="v-num">874</span><span class="v-de">Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem Rücken.</span></li>
+        <li class="v-line"><span class="v-num">875</span><span class="v-de">Das flatternde Kleid bauscht sich im Winde.</span></li>
+      </ul>
+    </div>
+
+    <!-- Parallel -->
+    <div class="text-panel" id="panel-par">
+      <div class="parallel-cols">
+        <div class="par-col">
+          <h3>Latein · Ovid</h3>
+          <ul class="verse-list">
+            <li class="v-line"><span class="v-num">868</span><span class="v-lat">ausa est quoque regia virgo</span></li>
+            <li class="v-line"><span class="v-num">869</span><span class="v-lat">nescia, quem premeret, tergo considere tauri:</span></li>
+            <li class="v-line"><span class="v-num">870</span><span class="v-lat">cum deus a terra siccoque a litore sensim</span></li>
+            <li class="v-line"><span class="v-num">871</span><span class="v-lat">falsa pedum primis vestigia ponit in undis,</span></li>
+            <li class="v-line"><span class="v-num">872</span><span class="v-lat">inde abit ulterius mediique per aequora ponti</span></li>
+            <li class="v-line"><span class="v-num">873</span><span class="v-lat">fert praedam. pavet haec litusque ablata relictum</span></li>
+            <li class="v-line"><span class="v-num">874</span><span class="v-lat">respicit et dextra cornum tenet, altera dorso</span></li>
+            <li class="v-line"><span class="v-num">875</span><span class="v-lat">inposita est; tremulae sinuantur flamine vestes.</span></li>
+          </ul>
+        </div>
+        <div class="par-col">
+          <h3>Deutsch · Reclam</h3>
+          <ul class="verse-list">
+            <li class="v-line"><span class="v-num">868</span><span class="v-de">Es wagte die Königstochter sogar,</span></li>
+            <li class="v-line"><span class="v-num">869</span><span class="v-de">ohne zu wissen, auf wem sie ritt, sich auf den Rücken des Stieres zu setzen.</span></li>
+            <li class="v-line"><span class="v-num">870</span><span class="v-de">Da strebt der Gott allmählich vom Festland und dem trockenen Strand hinweg</span></li>
+            <li class="v-line"><span class="v-num">871</span><span class="v-de">und setzt seine Füße trügerisch ein wenig ins Wasser;</span></li>
+            <li class="v-line"><span class="v-num">872</span><span class="v-de">dann entfernt er sich weiter und trägt seine Beute mitten über die Meeresfläche.</span></li>
+            <li class="v-line"><span class="v-num">873</span><span class="v-de">Sie ängstigt sich und blickt, die Entführte, zum Strand zurück, den sie verlassen hat.</span></li>
+            <li class="v-line"><span class="v-num">874</span><span class="v-de">Mit der Rechten hält sie ein Horn fest,</span></li>
+            <li class="v-line"><span class="v-num">875</span><span class="v-de">die andere Hand ruht auf dem Rücken. Das flatternde Kleid bauscht sich im Winde.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §3  METRISCHE ANALYSE
+════════════════════════════════════════ -->
+<section id="metrik">
+  <div class="container">
+    <span class="sec-label">§ 3 · Metrische Analyse</span>
+    <h2 class="sec-title reveal">Daktylischer Hexameter<br>— Verse 870–875</h2>
+
+    <p class="meter-intro reveal">
+      Ovid schreibt in <strong>daktylischen Hexametern</strong>: jeder Vers besteht aus sechs Füßen.
+      Jeder Fuß ist entweder ein <em>Daktylus</em> (— ∪ ∪) oder ein <em>Spondeus</em> (— —);
+      der sechste Fuß ist stets ein Spondeus oder Trochäus (— ×).
+    </p>
+
+    <div class="legend-row reveal">
+      <div class="lg-item">
+        <span class="lg-sym long">—</span>
+        <span>Länge (Syllaba longa)</span>
+      </div>
+      <div class="lg-item">
+        <span class="lg-sym short">∪</span>
+        <span>Kürze (Syllaba brevis)</span>
+      </div>
+      <div class="lg-item">
+        <span class="lg-sym anc">×</span>
+        <span>Anceps (frei im 6. Fuß)</span>
+      </div>
+      <div class="lg-item">
+        <span style="color:var(--gold-light);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">DAK</span>
+        <span>Daktylus — ∪ ∪</span>
+      </div>
+      <div class="lg-item">
+        <span style="color:var(--ivory-dim);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">SP</span>
+        <span>Spondeus — —</span>
+      </div>
+    </div>
+
+    <!-- Vers 870 -->
+    <div class="scan-block reveal">
+      <p class="scan-verse-lbl">Vers 870 &nbsp;·&nbsp; cum deus a terra siccoque a litore sensim</p>
+      <div class="scan-row">
+        <!-- Foot 1: DAK -->
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">cum</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">de·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">us</span></div>
+        </div>
+        <!-- Foot 2: SP -->
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ā</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ter·rā</span></div>
+        </div>
+        <!-- Foot 3: SP -->
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">sic·</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">cō·que</span></div>
+        </div>
+        <!-- Foot 4: DAK -->
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ā</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">lī·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">to·re</span></div>
+        </div>
+        <!-- Foot 5: DAK -->
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">sen·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">sim</span></div>
+          <!-- 3rd pos short implied -->
+        </div>
+        <!-- Foot 6: SP anceps -->
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
+          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
+        </div>
+      </div>
+      <div class="foot-types">
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+      </div>
+    </div>
+
+    <!-- Vers 871 -->
+    <div class="scan-block reveal">
+      <p class="scan-verse-lbl">Vers 871 &nbsp;·&nbsp; falsa pedum primis vestigia ponit in undis</p>
+      <div class="scan-row">
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">fal·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">sa</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">pe·</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dum</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">prī·mis</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ves·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ti·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">gi·a</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">pō·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">nit</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">in</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">un·</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dīs</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
+          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
+        </div>
+      </div>
+      <div class="foot-types">
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+      </div>
+    </div>
+
+    <!-- Vers 872 -->
+    <div class="scan-block reveal">
+      <p class="scan-verse-lbl">Vers 872 &nbsp;·&nbsp; inde abit ulterius mediique per aequora ponti</p>
+      <div class="scan-row">
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">in·de</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">a·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">bit</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ul·</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">te·ri·us</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">me·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">di·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ī·que</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">per</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ae·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">quo·ra</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">pon·</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">tī</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
+          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
+        </div>
+      </div>
+      <div class="foot-types">
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+      </div>
+    </div>
+
+    <!-- Vers 873 -->
+    <div class="scan-block reveal">
+      <p class="scan-verse-lbl">Vers 873 &nbsp;·&nbsp; fert praedam. pavet haec litusque ablata relictum</p>
+      <div class="scan-row">
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">fert</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">praed·am</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">pa·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">vet</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">haec</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">lī·tus·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">que</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ab·</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">lā·ta</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">re·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">lic·</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">tum</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
+          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
+        </div>
+      </div>
+      <div class="foot-types">
+        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+      </div>
+    </div>
+
+    <!-- Vers 874-875 -->
+    <div class="scan-block reveal">
+      <p class="scan-verse-lbl">Vers 874–875 &nbsp;·&nbsp; respicit et dextra cornum tenet, altera dorso / inposita est; tremulae sinuantur flamine vestes.</p>
+      <div class="scan-row">
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">res·pi·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">cit</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">et</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dex·</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">trā</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">cor·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">num</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">te·net</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">al·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">te·</span></div>
+          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ra</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dor·</span></div>
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">sō</span></div>
+        </div>
+        <div class="scan-foot">
+          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
+          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
+        </div>
+      </div>
+      <div class="foot-types">
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §4  GRAMMATIK
+════════════════════════════════════════ -->
+<section id="grammatik">
+  <div class="container">
+    <span class="sec-label">§ 4 · Grammatik</span>
+    <h2 class="sec-title reveal">Ablativus absolutus<br>und Hyperbaton</h2>
+
+    <div class="gram-grid">
+
+      <div class="reveal">
+        <div class="hi-box">
+          <p class="lat-q">
+            <span class="lat-hi">iactatis</span> … <span class="lat-hi">pennis</span>
+          </p>
+          <span class="gram-note">Ovid, Met. II, 835 — Ablativus absolutus</span>
+        </div>
+
+        <div class="gram-body">
+          <p>
+            In Vers 835 verwendet Ovid einen <span class="term">Ablativus absolutus</span>:
+            <span class="lat">„iactatis … pennis"</span>.
+            Das Partizip Perfekt Passiv <span class="lat">„iactatis"</span> und das Substantiv
+            <span class="lat">„pennis"</span> stehen beide im Ablativ Plural und sind grammatisch
+            unabhängig vom Hauptsatz, dessen Subjekt <span class="lat">Atlantiades</span> ist.
+          </p>
+          <p>
+            Der Ablativus absolutus gibt die <strong>Begleitumstände des Handelns</strong> an —
+            Merkur schwingt sich in den Himmel, während er die Flügel schlägt.
+          </p>
+          <p>
+            Ovid trennt die beiden Teile des Abl. abs. durch das dazwischenstehende Objekt
+            <span class="lat">„aethera"</span> — das ist ein bewusstes
+            <span class="term">Hyperbaton</span>, das die Leichtigkeit und Weite des Fluges
+            sprachlich nachahmt. Die Konstruktion ist also nicht nur ein grammatisches Mittel,
+            sondern unterstreicht gleichzeitig die <strong>Dynamik der Szene</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <table class="gram-table">
+          <thead>
+            <tr><th>Form</th><th>Wort</th><th>Analyse</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Partizip</td>
+              <td class="lat-it">iactatis</td>
+              <td>PPP von <em>iacto</em>, Abl. Pl. mask./neutr.</td>
+            </tr>
+            <tr>
+              <td>Substantiv</td>
+              <td class="lat-it">pennis</td>
+              <td>Abl. Pl. von <em>penna</em> (Flügel)</td>
+            </tr>
+            <tr>
+              <td>Objekt (Hyperbaton)</td>
+              <td class="lat-it">aethera</td>
+              <td>Akk. Sg. von <em>aether</em> (Äther, Himmel)</td>
+            </tr>
+            <tr>
+              <td>Hauptsatz-Subj.</td>
+              <td class="lat-it">Atlantiades</td>
+              <td>Nom. Sg. — Patronymikon für Merkur</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="hyp-vis">
+          <em><span style="color:var(--gold)">iactatis</span> … aethera … <span style="color:var(--gold)">pennis</span></em>
+          <span class="hyp-arrow">↑ Hyperbaton: Abl.-abs.-Teile umrahmen das Objekt ↑</span>
+        </div>
+
+        <p style="font-size:0.9rem;color:var(--ivory-dim);font-style:italic;line-height:1.8">
+          Das Hyperbaton schafft eine Art »Klammer«, die das Objekt
+          <em>aethera</em> buchstäblich in die Schwingen einschließt —
+          ein typisches ovidisches Stilmittel für bildhafte Sprachgestaltung.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §5  KOMMENTIERTE SCHULAUSGABE
+════════════════════════════════════════ -->
+<section id="schulausgabe">
+  <div class="container">
+    <span class="sec-label">§ 5 · Schulausgabe</span>
+    <h2 class="sec-title reveal">Kommentierte Ausgabe<br>Verse 868–875</h2>
+
+    <div class="edition-wrap">
+
+      <!-- Main text block -->
+      <div class="edition-page reveal">
+        <div class="ed-head">
+          <div class="ed-head-title">Iuppiter et Europa</div>
+          <div class="ed-head-sub">P. Ovidius Naso · Metamorphōsēon Liber II · vv. 868–875</div>
+        </div>
+
+        <!-- Annotated verses -->
+        <div class="ann-line">
+          <span class="al-num">868</span>
+          <span class="al-text">
+            <span class="vw">ausa<span class="tt">ausa est: „sie wagte" — Perf. von audeo, 2. Konjunktion</span></span>
+            est quoque
+            <span class="vw">regia<span class="tt">regia virgo: „Königstochter" — regia, Adj. zu rex</span></span>
+            virgo
+          </span>
+        </div>
+        <div class="ann-line">
+          <span class="al-num">869</span>
+          <span class="al-text">
+            <span class="gw">nescia<span class="tt">nescia + indirekter Fragesatz (quem premeret): Adj. mit Gen.-Ergänzung oder Nebensatz</span></span>,
+            quem premeret, tergo
+            <span class="vw">considere<span class="tt">considere: Inf. von consido — „sich setzen auf"</span></span>
+            tauri:
+          </span>
+        </div>
+        <div class="ann-line">
+          <span class="al-num">870</span>
+          <span class="al-text">
+            cum deus a terra siccoque a litore
+            <span class="vw">sensim<span class="tt">sensim: Adverb — „allmählich, langsam" (stilistisch: Spannung durch Langsamkeit)</span></span>
+          </span>
+        </div>
+        <div class="ann-line">
+          <span class="al-num">871</span>
+          <span class="al-text">
+            <span class="vw">falsa<span class="tt">falsa vestigia: „trügerische Schritte" — falsa betont die List des Gottes</span></span>
+            pedum primis
+            <span class="vw">vestigia<span class="tt">vestigia, -orum n. Pl.: Schritte, Spuren — hier: die ersten, zaghaften Schritte ins Wasser</span></span>
+            ponit in undis,
+          </span>
+        </div>
+        <div class="ann-line">
+          <span class="al-num">872</span>
+          <span class="al-text">
+            inde abit
+            <span class="vw">ulterius<span class="tt">ulterius: Komparativadverb von ultra — „weiter hinaus" (Steigerung der Gefahr)</span></span>
+            mediique per aequora
+            <span class="vw">ponti<span class="tt">pontus, -i m.: Meer, See — hier Gen. von pontus, abhängig von aequora</span></span>
+          </span>
+        </div>
+        <div class="ann-line">
+          <span class="al-num">873</span>
+          <span class="al-text">
+            fert
+            <span class="vw">praedam<span class="tt">praeda, -ae f.: Beute — der emotionale Höhepunkt: Europa als „Beute" des Gottes</span></span>.
+            <span class="gw">pavet haec<span class="tt">pavet haec: „sie zittert" — haec bezieht sich auf Europa; pavet drückt Angst und Erschrecken aus</span></span>
+            litusque
+            <span class="vw">ablata<span class="tt">ablata: PPP von aufero — „die Entführte/Fortgetragene", prädikativ zu haec</span></span>
+            relictum
+          </span>
+        </div>
+        <div class="ann-line">
+          <span class="al-num">874</span>
+          <span class="al-text">
+            respicit et
+            <span class="gw">dextra<span class="tt">dextra (manu): Abl. des Mittels — „mit der rechten Hand"</span></span>
+            <span class="vw">cornum<span class="tt">cornu, -us n.: Horn — Europa klammert sich ans Horn, symbolisch: letzter Halt</span></span>
+            tenet, altera dorso
+          </span>
+        </div>
+        <div class="ann-line">
+          <span class="al-num">875</span>
+          <span class="al-text">
+            <span class="gw">inposita est<span class="tt">inposita est: „(die Hand) ist aufgelegt" — Passiv; Subjekt ist altera (manus)</span></span>;
+            <span class="vw">tremulae<span class="tt">tremulae: „flatternde, zitternde" — evoziert Bewegung und Angst zugleich</span></span>
+            <span class="gw">sinuantur<span class="tt">sinuantur: „bauschen sich" — Passiv von sinuo; Bild der Bewegung durch den Wind</span></span>
+            flamine vestes.
+          </span>
+        </div>
+
+        <!-- German translation -->
+        <div class="de-trans-block">
+          <h4>Deutsche Übersetzung (Reclam)</h4>
+          <p>
+            Es wagte die Königstochter sogar, ohne zu wissen, auf wem sie ritt, sich auf den
+            Rücken des Stieres zu setzen. Da strebt der Gott allmählich vom Festland und dem
+            trockenen Strand hinweg und setzt seine Füße trügerisch ein wenig ins Wasser; dann
+            entfernt er sich weiter und trägt seine Beute mitten über die Meeresfläche. Sie
+            ängstigt sich und blickt, die Entführte, zum Strand zurück, den sie verlassen hat.
+            Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem Rücken.
+            Das flatternde Kleid bauscht sich im Winde.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sidebar: vocab + exercises -->
+      <div class="ed-sidebar">
+
+        <div class="sb-card reveal">
+          <h4>Vokabular</h4>
+          <div class="vocab-item">
+            <span class="vocab-w">audeo, -es, ausus sum</span>
+            <span class="vocab-d">wagen, sich erkühnen; Semideponens</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-w">consido, -ere, consedi</span>
+            <span class="vocab-d">sich setzen, sich niederlassen</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-w">vestigium, -ii n.</span>
+            <span class="vocab-d">Spur, Schritt, Fußtritt</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-w">praeda, -ae f.</span>
+            <span class="vocab-d">Beute, Raub</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-w">paveo, -es, pavi</span>
+            <span class="vocab-d">erschrecken, zittern, sich fürchten</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-w">cornu, -us n.</span>
+            <span class="vocab-d">Horn; hier: Stierhorn</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-w">flamen, -inis n.</span>
+            <span class="vocab-d">Windhauch, Brise</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-w">sinuo, -are</span>
+            <span class="vocab-d">bauschen, wölben, winden</span>
+          </div>
+        </div>
+
+        <div class="sb-card reveal">
+          <h4>Aufgaben</h4>
+
+          <div class="aufgabe-card">
+            <span class="auf-num">Aufgabe 1</span>
+            <p class="auf-text">
+              <strong>Paraphrase:</strong> Formuliere den Inhalt der Verse 870–875 in eigenen deutschen Worten.
+              Achte dabei besonders auf die Perspektivwechsel zwischen Jupiter und Europa.
+            </p>
+            <button class="eh-toggle" onclick="toggleEH(this)">Erwartungshorizont</button>
+            <div class="erwartung">
+              Jupiter entfernt sich langsam und heimlich vom Ufer. Die Schritte ins Wasser
+              werden als „trügerisch" (<em>falsa</em>) beschrieben — er täuscht Europa über
+              seine Absicht. Dann schwimmt er immer weiter ins offene Meer. Ovid wechselt zur
+              Perspektive Europas: Sie erschrickt, blickt zurück zum verlassenen Strand und
+              hält sich mit beiden Händen fest — ein Bild der Hilflosigkeit und des Verlustes.
+            </div>
+          </div>
+
+          <div class="aufgabe-card">
+            <span class="auf-num">Aufgabe 2</span>
+            <p class="auf-text">
+              <strong>Stilmittel:</strong> Benenne und erkläre die Wirkung von mindestens
+              zwei Stilmitteln in den Versen 873–875. Gehe auf den Zusammenhang
+              zwischen Sprache und Inhalt ein.
+            </p>
+            <button class="eh-toggle" onclick="toggleEH(this)">Erwartungshorizont</button>
+            <div class="erwartung">
+              <strong>1. Polysyndeton</strong> (<em>et … et …</em>, V. 874): Die Reihung
+              mit mehreren „und" imitiert das hektische Klammern Europas — sie hält sich
+              gleichzeitig mit beiden Händen fest. <br>
+              <strong>2. Alliteration</strong> <em>tremulae … flamine</em> (V. 875): Das
+              Zittern (<em>tremulae</em>) und der Wind (<em>flamine</em>) erzeugen
+              klanglich das Flattern des Kleides. <br>
+              <strong>3. Praeda</strong> (V. 873): Das Wort „Beute" reduziert Europa auf
+              ein Objekt — die Brutalität des Raubes wird durch einen einzigen Begriff
+              komprimiert.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §6  KUNSTGALERIE
+════════════════════════════════════════ -->
+<section id="galerie">
+  <div class="container">
+    <span class="sec-label">§ 6 · Rezeption</span>
+    <h2 class="sec-title reveal">Der Mythos in der Kunst</h2>
+
+    <div class="gallery-grid reveal">
+
+      <div class="gal-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Tizian_-_Raub_der_Europa_-_MFA_Boston.jpg/800px-Tizian_-_Raub_der_Europa_-_MFA_Boston.jpg"
+          alt="Tizian – Der Raub der Europa"
+          loading="lazy"
+        >
+        <div class="gal-overlay">
+          <div class="gal-title">Tizian (Tiziano Vecellio)</div>
+          <div class="gal-meta">Der Raub der Europa · ca. 1560–62 · Isabella Stewart Gardner Museum, Boston</div>
+        </div>
+      </div>
+
+      <div class="gal-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Paolo_Veronese_-_The_Rape_of_Europa_-_WGA24869.jpg/600px-Paolo_Veronese_-_The_Rape_of_Europa_-_WGA24869.jpg"
+          alt="Veronese – Der Raub der Europa"
+          loading="lazy"
+        >
+        <div class="gal-overlay">
+          <div class="gal-title">Paolo Veronese</div>
+          <div class="gal-meta">Der Raub der Europa · ca. 1580 · Palazzo Ducale, Venedig</div>
+        </div>
+      </div>
+
+      <div class="gal-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Europa_on_the_bull%2C_460-450_BC%2C_National_museum%2C_Tarquinia.jpg/600px-Europa_on_the_bull%2C_460-450_BC%2C_National_museum%2C_Tarquinia.jpg"
+          alt="Antike Vasenmalerei – Europa auf dem Stier"
+          loading="lazy"
+        >
+        <div class="gal-overlay">
+          <div class="gal-title">Attisch-rotfigurig</div>
+          <div class="gal-meta">Europa auf dem Stier · 460–450 v. Chr. · Museo Nazionale, Tarquinia</div>
+        </div>
+      </div>
+
+      <div class="gal-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Peter_Paul_Rubens_-_The_Rape_of_Europa_-_Google_Art_Project.jpg/600px-Peter_Paul_Rubens_-_The_Rape_of_Europa_-_Google_Art_Project.jpg"
+          alt="Rubens – Der Raub der Europa"
+          loading="lazy"
+        >
+        <div class="gal-overlay">
+          <div class="gal-title">Peter Paul Rubens</div>
+          <div class="gal-meta">Der Raub der Europa · ca. 1628–29 · Prado, Madrid</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §7  ÜBER DEN MYTHOS HINAUS  (PLACEHOLDER)
+════════════════════════════════════════ -->
+<section id="ueberden">
+  <div class="container">
+    <span class="sec-label">§ 7 · Über den Mythos hinaus</span>
+    <h2 class="sec-title reveal">Persönliche Reflexion</h2>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PLATZHALTER  —  Füge hier deinen Inhalt ein.
+         Ersetze den gesamten <div class="placeholder-box">…</div>
+         durch dein Meme mit Erklärung ODER deine Reflexion.
+
+         Beispiel für ein Meme:
+           <figure style="text-align:center;max-width:600px;margin:0 auto">
+             <img src="DEIN-MEME-BILD.jpg" alt="Meme-Beschreibung"
+                  style="width:100%;border:1px solid rgba(201,164,74,0.3)">
+             <figcaption style="margin-top:1rem;font-style:italic;color:var(--ivory-dim)">
+               Erklärung des Memes…
+             </figcaption>
+           </figure>
+
+         Beispiel für eine Reflexion:
+           <p>Mein persönlicher Kommentar zum Mythos…</p>
+    ════════════════════════════════════════════════════════════ -->
+
+    <div class="placeholder-box reveal">
+      <div class="ph-icon">✦</div>
+      <p class="ph-title">Platzhalter — Inhalt folgt</p>
+      <p class="ph-note">Hier kommt ein Meme mit Erklärung oder eine persönliche Reflexion zum Mythos.</p>
+    </div>
+
+    <!-- ════  ENDE PLATZHALTER  ════ -->
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer>
+  <div class="ft-brand">Iuppiter et Europa</div>
+  <p class="ft-text">
+    P. Ovidius Naso · Metamorphōsēon Libri XV · Liber II · vv. 833–875<br>
+    Lateinisches Schulprojekt · Digitale Ausgabe
+  </p>
+  <div class="ft-div"></div>
+  <p class="ft-text" style="font-size:0.75rem;color:var(--gold-dim)">
+    Gemeinfreie Kunstwerke via Wikimedia Commons ·
+    Schriften: Cinzel &amp; EB Garamond via Google Fonts
+  </p>
+</footer>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+// ── Nav scroll ──────────────────────────────────────────────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── Parallax hero ───────────────────────────────────────────────
+const heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y < window.innerHeight) {
+    heroBg.style.transform = `scale(1.08) translateY(${y * 0.28}px)`;
+  }
+}, { passive: true });
+
+// ── Scroll reveal ───────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+
+// ── Text toggle ──────────────────────────────────────────────────
+function showPanel(key) {
+  ['lat','de','par'].forEach(k => {
+    document.getElementById('panel-' + k).classList.toggle('on', k === key);
+    document.getElementById('btn-' + k).classList.toggle('on', k === key);
+  });
+}
+
+// ── Erwartungshorizont toggle ────────────────────────────────────
+function toggleEH(btn) {
+  const eh = btn.nextElementSibling;
+  const open = eh.classList.toggle('open');
+  btn.textContent = open ? 'Schließen' : 'Erwartungshorizont';
+}
+</script>
+
+</body>
+</html>
