@@ -85,20 +85,22 @@
 
   .hero-bg {
     position: absolute; inset: 0;
-    /* FIX 1: Rembrandt statt Tizian – dramatischer, dunkler, besser als Hintergrund */
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rembrandt_-_The_Abduction_of_Europa_-_Google_Art_Project.jpg/1280px-Rembrandt_-_The_Abduction_of_Europa_-_Google_Art_Project.jpg');
-    background-size: cover; background-position: center 40%;
+    /* Lokales Hintergrundbild – Europa auf dem Stier, Freundinnen */
+    background-image: url('hero_background.png');
+    background-size: cover; background-position: center 35%;
     transform: scale(1.08); will-change: transform;
+    /* Leichter Blur: macht das Bild zur atmosphärischen Kulisse */
+    filter: blur(1.5px) brightness(0.85);
   }
 
   .hero-overlay {
     position: absolute; inset: 0;
-    /* FIX 1: Overlay etwas dunkler für bessere Lesbarkeit */
+    /* Dunkles Overlay: Text bleibt immer lesbar */
     background: linear-gradient(
       160deg,
-      rgba(7,6,10,0.65) 0%,
-      rgba(7,6,10,0.55) 35%,
-      rgba(7,6,10,0.80) 65%,
+      rgba(7,6,10,0.72) 0%,
+      rgba(7,6,10,0.65) 30%,
+      rgba(7,6,10,0.85) 65%,
       rgba(7,6,10,1) 100%
     );
   }
@@ -340,53 +342,51 @@
   .lg-sym.short { color: var(--blue-muted); }
   .lg-sym.anc   { color: var(--ivory-dim); }
 
-  /* scan block */
-  .scan-block { margin-bottom: 3.5rem; }
+  /* ── metrische Analyse · ruby layout ─────────────────────── */
+  .scan-block { margin-bottom: 3rem; }
 
   .scan-verse-lbl {
     font-family: var(--font-head); font-size: 0.65rem;
     letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.8rem;
   }
 
-  .scan-row {
-    display: flex; flex-wrap: nowrap; align-items: flex-end;
-    gap: 0; overflow-x: auto;
-    padding: 1.5rem 2rem 1.2rem;
+  /* verse display with ruby annotations above each syllable */
+  .verse-ruby {
+    padding: 1.6rem 2rem 1.4rem;
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(201,164,74,0.14);
     border-left: 3px solid var(--gold);
-  }
-
-  .scan-foot {
-    display: flex; align-items: flex-end;
-    position: relative;
-    padding-right: 14px; margin-right: 6px;
-  }
-
-  .scan-foot::after {
-    content: '|';
-    position: absolute; right: 0; bottom: 2px;
-    color: rgba(201,164,74,0.4); font-size: 1.1rem; line-height: 1;
-  }
-  .scan-foot:last-child { padding-right: 0; margin-right: 0; }
-  .scan-foot:last-child::after { display: none; }
-
-  .scan-syl {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 5px; padding: 0 4px;
-  }
-
-  .s-mark {
-    font-size: 0.92rem; line-height: 1; font-family: monospace;
-  }
-  .s-mark.L { color: var(--gold); }
-  .s-mark.S { color: var(--blue-muted); }
-  .s-mark.X { color: var(--ivory-dim); }
-
-  .s-text {
     font-family: var(--font-body); font-style: italic;
-    font-size: 0.98rem; color: var(--ivory); white-space: nowrap;
+    font-size: 1.05rem; color: var(--ivory);
+    line-height: 3.4;
+    overflow-x: auto; white-space: nowrap;
+  }
+
+  .verse-ruby ruby { display: inline-ruby; }
+
+  .verse-ruby rt {
+    font-style: normal; font-size: 0.76rem;
+    font-family: monospace; text-align: center;
+  }
+
+  .verse-ruby rt.long   { color: var(--gold); }
+  .verse-ruby rt.short  { color: var(--blue-muted); }
+  .verse-ruby rt.anceps { color: var(--ivory-dim); }
+
+  .elision { opacity: 0.45; }
+
+  .foot-sep {
+    color: rgba(201,164,74,0.45);
+    margin: 0 4px;
+    font-style: normal;
+  }
+
+  .caesura {
+    color: var(--gold);
+    margin: 0 5px;
+    font-style: normal;
+    font-size: 1.15rem;
   }
 
   .foot-types {
@@ -961,13 +961,13 @@
 </section>
 
 <!-- ════════════════════════════════════════
-     §3  METRISCHE ANALYSE — FIX 6
-     Verse 870–875 (korrekter Ovid-Text)
+     §3  METRISCHE ANALYSE
+     Verse 871–875 · ruby annotations
 ════════════════════════════════════════ -->
 <section id="metrik">
   <div class="container">
     <span class="sec-label">§ 3 · Metrische Analyse</span>
-    <h2 class="sec-title reveal">Daktylischer Hexameter<br>— Verse 870–875</h2>
+    <h2 class="sec-title reveal">Daktylischer Hexameter<br>— Verse 871–875</h2>
 
     <p class="meter-intro reveal">
       Ovid schreibt in <strong>daktylischen Hexametern</strong>: jeder Vers besteht aus sechs Füßen.
@@ -976,243 +976,132 @@
     </p>
 
     <div class="legend-row reveal">
-      <div class="lg-item"><span class="lg-sym long">—</span><span>Länge (Syllaba longa)</span></div>
-      <div class="lg-item"><span class="lg-sym short">∪</span><span>Kürze (Syllaba brevis)</span></div>
-      <div class="lg-item"><span class="lg-sym anc">×</span><span>Anceps (frei im 6. Fuß)</span></div>
+      <div class="lg-item"><span class="lg-sym long">—</span><span>Länge</span></div>
+      <div class="lg-item"><span class="lg-sym short">∪</span><span>Kürze</span></div>
+      <div class="lg-item"><span class="lg-sym anc">×</span><span>Anceps (6. Fuß)</span></div>
       <div class="lg-item"><span style="color:var(--gold-light);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">DAK</span><span>Daktylus — ∪ ∪</span></div>
       <div class="lg-item"><span style="color:var(--ivory-dim);font-family:var(--font-head);font-size:0.75rem;letter-spacing:.1em">SP</span><span>Spondeus — —</span></div>
+      <div class="lg-item"><span style="opacity:.45;font-family:var(--font-body);font-style:italic;font-size:0.9rem">(x)</span><span>Elision</span></div>
+      <div class="lg-item"><span style="color:var(--gold)">‖</span><span>Zäsur</span></div>
     </div>
 
-    <!-- Vers 870: cum deus a terra siccoque a litore sensim -->
+    <!-- Vers 871: falsa pedum primis vestigia ponit in undis -->
+    <!-- fal(—) sa(∪) pe(∪) | dum(—) prī(—) | mīs(—) ves(—) | tī(∪) gi(∪) a(∪) | pō(—) nit(∪) in(∪) | un(—) dīs(×) -->
     <div class="scan-block reveal">
-      <p class="scan-verse-lbl">Vers 870 · cum deus a terra siccoque a litore sensim</p>
-      <div class="scan-row">
-        <div class="scan-foot"><!-- DAK: cum-de-us -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">cum</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">de·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">us</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: ā-ter·rā -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ā</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ter·rā</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: sic·cō·que -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">sic·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">cōque</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: ā-lī-to·re -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ā</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">lī·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">to·re</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: sen·sim -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">sen·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">sim</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP 6. Fuß anceps -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
-          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
-        </div>
+      <p class="scan-verse-lbl">Vers 871 · falsa pedum primis vestigia ponit in undis</p>
+      <div class="verse-ruby">
+        <ruby>fal<rt class="long">—</rt></ruby><ruby>sa<rt class="short">∪</rt></ruby><ruby>pe<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>dum<rt class="long">—</rt></ruby><ruby>prī<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>mīs<rt class="long">—</rt></ruby><ruby>ves<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>tī<rt class="short">∪</rt></ruby><ruby>gi<rt class="short">∪</rt></ruby><ruby>a<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>pō<rt class="long">—</rt></ruby><ruby>nit<rt class="short">∪</rt></ruby><ruby>in<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>un<rt class="long">—</rt></ruby><ruby>dīs<rt class="anceps">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
         <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
-      </div>
-    </div>
-
-    <!-- Vers 871: falsa pedum primis vestigia ponit in undis -->
-    <div class="scan-block reveal">
-      <p class="scan-verse-lbl">Vers 871 · falsa pedum primis vestigia ponit in undis</p>
-      <div class="scan-row">
-        <div class="scan-foot"><!-- DAK: fal·sa·pe -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">fal·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">sa</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">pe·</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: dum·prī·mis -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dum</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">prī·mis</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: ves·ti·gi·a -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ves·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ti·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">gi·a</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: pō·ni·t(in) -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">pō·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ni·t(in)</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">un·</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: dīs -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dīs</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
-        </div>
-        <div class="scan-foot">
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
-          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
-        </div>
-      </div>
-      <div class="foot-types">
         <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
       </div>
     </div>
 
     <!-- Vers 872: inde abit ulterius mediique per aequora ponti -->
+    <!-- in(—) d(e)a(—) bit(—) | ul(—) te(∪) ri(∪) | us(—) me(∪) di(∪) | ī(—) que(—) per(—) | ae(∪) quo(∪) ra(∪) | pon(—) tī(×) -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 872 · inde abit ulterius mediique per aequora ponti</p>
-      <div class="scan-row">
-        <div class="scan-foot"><!-- DAK: in·de·a·bit -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">in·de</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">a·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">bit</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: ul·te·ri·us -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ul·te·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ri·us</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: me·di·ī·que -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">me·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">di·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ī·que</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: per·ae·quo·ra -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">per</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ae·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">quo·ra</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: pon·tī -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">pon·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">tī</span></div>
-        </div>
-        <div class="scan-foot">
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
-          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
-        </div>
+      <div class="verse-ruby">
+        <ruby>in<rt class="long">—</rt></ruby><ruby>d<span class="elision">(e)</span>a<rt class="long">—</rt></ruby><ruby>bit<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>ul<rt class="long">—</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>ri<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>us<rt class="long">—</rt></ruby><ruby>me<rt class="short">∪</rt></ruby><ruby>di<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>ī<rt class="long">—</rt></ruby><ruby>que<rt class="long">—</rt></ruby><ruby>per<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>ae<rt class="short">∪</rt></ruby><ruby>quo<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>pon<rt class="long">—</rt></ruby><ruby>tī<rt class="anceps">×</rt></ruby>
       </div>
       <div class="foot-types">
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
         <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
       </div>
     </div>
 
     <!-- Vers 873: fert praedam. pavet haec litusque ablata relictum -->
+    <!-- fert(—) prae(—) | dam(—) ‖ pa(∪) vet(∪) | haec(—) lī(—) | tus(∪) qu(e)ab(∪) lā(—) | ta(∪) re(∪) | lic(—) tum(×) -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 873 · fert praedam. pavet haec litusque ablata relictum</p>
-      <div class="scan-row">
-        <div class="scan-foot"><!-- SP: fert·praed·am -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">fert</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">praed·am</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: pa·vet·haec -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">pa·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">vet</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">haec</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: lī·tus·que·ab -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">lī·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">tus·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">que·ab·</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: lā·ta·re -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">lā·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ta</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">re·</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: lic·tum -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">lic·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">tum</span></div>
-        </div>
-        <div class="scan-foot">
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
-          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
-        </div>
+      <div class="verse-ruby">
+        <ruby>fert<rt class="long">—</rt></ruby><ruby>prae<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>dam<rt class="long">—</rt></ruby><span class="caesura">‖</span><ruby>pa<rt class="short">∪</rt></ruby><ruby>vet<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>haec<rt class="long">—</rt></ruby><ruby>lī<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>tus<rt class="short">∪</rt></ruby><ruby>qu<span class="elision">(e)</span>ab<rt class="short">∪</rt></ruby><ruby>lā<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>ta<rt class="short">∪</rt></ruby><ruby>re<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>lic<rt class="long">—</rt></ruby><ruby>tum<rt class="anceps">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
         <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
       </div>
     </div>
 
     <!-- Vers 874: respicit et dextra cornum tenet, altera dorso -->
+    <!-- res(—) pi(∪) ci(∪) | t(et)(—) dex(—) | trā(—) cor(—) | num(∪) te(∪) net(—) | al(—) te(∪) ra(∪) | dor(—) sō(×) -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 874 · respicit et dextra cornum tenet, altera dorso</p>
-      <div class="scan-row">
-        <div class="scan-foot"><!-- DAK: res·pi·ci·t(et) -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">res·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">pi·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ci·t(et)</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: dex·trā -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dex·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">trā</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: cor·nu·m·te·net -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">cor·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">num</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">te·net</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: al·te·ra -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">al·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">te·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ra</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: dor·sō -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">dor·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">sō</span></div>
-        </div>
-        <div class="scan-foot">
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
-          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
-        </div>
+      <div class="verse-ruby">
+        <ruby>res<rt class="long">—</rt></ruby><ruby>pi<rt class="short">∪</rt></ruby><ruby>ci<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby><span class="elision">t(et)</span><rt class="long">—</rt></ruby><ruby>dex<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>trā<rt class="long">—</rt></ruby><ruby>cor<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>num<rt class="short">∪</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>net<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>al<rt class="long">—</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>dor<rt class="long">—</rt></ruby><ruby>sō<rt class="anceps">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
-        <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
       </div>
     </div>
 
     <!-- Vers 875: inposita est; tremulae sinuantur flamine vestes -->
+    <!-- in(—) po(∪) si(∪) | t(a)est(—) tre(—) | mu(∪) lae(∪) si(—) | nu(∪) an(—) tur(—) | flā(—) mi(∪) ne(∪) | ves(—) tēs(×) -->
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 875 · inposita est; tremulae sinuantur flamine vestes</p>
-      <div class="scan-row">
-        <div class="scan-foot"><!-- SP: im·po·si·t(est) -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">im·po·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">si·t(est)</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: tre·mu·lae -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">tre·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">mu·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">lae</span></div>
-        </div>
-        <div class="scan-foot"><!-- DAK: si·nu·an·tur -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">si·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">nu·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">an·tur</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: flā·mi·ne -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">flā·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">mi·</span></div>
-          <div class="scan-syl"><span class="s-mark S">∪</span><span class="s-text">ne</span></div>
-        </div>
-        <div class="scan-foot"><!-- SP: ves·tēs -->
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">ves·</span></div>
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">tēs</span></div>
-        </div>
-        <div class="scan-foot">
-          <div class="scan-syl"><span class="s-mark L">—</span><span class="s-text">—</span></div>
-          <div class="scan-syl"><span class="s-mark X">×</span><span class="s-text">×</span></div>
-        </div>
+      <div class="verse-ruby">
+        <ruby>in<rt class="long">—</rt></ruby><ruby>po<rt class="short">∪</rt></ruby><ruby>si<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby><span class="elision">t(a)est</span><rt class="long">—</rt></ruby><ruby>tre<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>mu<rt class="short">∪</rt></ruby><ruby>lae<rt class="short">∪</rt></ruby><ruby>si<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>nu<rt class="short">∪</rt></ruby><ruby>an<rt class="long">—</rt></ruby><ruby>tur<rt class="long">—</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>flā<rt class="long">—</rt></ruby><ruby>mi<rt class="short">∪</rt></ruby><ruby>ne<rt class="short">∪</rt></ruby>
+        <span class="foot-sep">|</span>
+        <ruby>ves<rt class="long">—</rt></ruby><ruby>tēs<rt class="anceps">×</rt></ruby>
       </div>
       <div class="foot-types">
-        <span class="ft-lbl P">SP</span><span class="ft-lbl D">DAK</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
         <span class="ft-lbl D">DAK</span><span class="ft-lbl D">DAK</span>
-        <span class="ft-lbl P">SP</span><span class="ft-lbl P">SP</span>
+        <span class="ft-lbl D">DAK</span><span class="ft-lbl P">SP</span>
       </div>
     </div>
 
