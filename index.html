@@ -725,9 +725,9 @@
   #galerie::before {
     content: '';
     position: absolute;
-    top: -80px; left: 0; right: 0;
-    height: 80px;
-    background: linear-gradient(to bottom, var(--black), var(--navy));
+    top: -120px; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--navy));
     pointer-events: none;
     z-index: 1;
   }
@@ -737,9 +737,20 @@
   #ueberden::before {
     content: '';
     position: absolute;
-    top: -80px; left: 0; right: 0;
-    height: 80px;
-    background: linear-gradient(to bottom, var(--navy), var(--black));
+    top: -120px; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--black));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* §1 → §2: sanfter Ausklang nach unten */
+  #inhaltsangabe::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 140px;
+    background: linear-gradient(to bottom, transparent, var(--navy));
     pointer-events: none;
     z-index: 1;
   }
@@ -834,9 +845,8 @@
   <div class="container">
     <div class="story-grid">
       <div class="story-img-wrap reveal-left">
-        <!-- local: ./images/rubens_inhaltsangabe.jpg -->
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Peter_Paul_Rubens_-_The_Rape_of_Europa_-_Google_Art_Project.jpg/800px-Peter_Paul_Rubens_-_The_Rape_of_Europa_-_Google_Art_Project.jpg"
+          src="./images/rubens_inhaltsangabe.png"
           alt="Peter Paul Rubens – Der Raub der Europa"
           loading="lazy"
         >
