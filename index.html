@@ -219,7 +219,7 @@
 
   .story-img-wrap img {
     width: 100%; height: 100%;
-    object-fit: cover; object-position: top;
+    object-fit: cover; object-position: center 30%;
     filter: sepia(18%) contrast(1.08) brightness(0.92);
     transition: transform 0.7s ease, filter 0.7s ease; display: block;
   }
@@ -631,51 +631,7 @@
   .erwartung.open { display: block; }
 
   /* ══════════════════════════════════════════════
-     §6  GALERIE
-  ══════════════════════════════════════════════ */
-  #galerie {
-    background: var(--navy);
-    overflow: hidden;
-  }
-
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr;
-    grid-template-rows: 340px 260px;
-    gap: 0.6rem; margin-top: 3rem;
-  }
-
-  .gal-item {
-    position: relative; overflow: hidden; cursor: zoom-in;
-  }
-  .gal-item:nth-child(1) { grid-row: span 2; }
-
-  .gal-item img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    filter: sepia(12%) contrast(1.05) brightness(0.88);
-    transition: transform 0.7s ease, filter 0.7s ease;
-  }
-  .gal-item:hover img {
-    transform: scale(1.07);
-    filter: sepia(0%) contrast(1.02) brightness(0.96);
-  }
-
-  .gal-overlay {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 3rem 1.4rem 1.2rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.88));
-    transform: translateY(101%); transition: transform 0.4s ease;
-  }
-  .gal-item:hover .gal-overlay { transform: translateY(0); }
-
-  .gal-title {
-    font-family: var(--font-head); font-size: 0.82rem;
-    color: var(--ivory); margin-bottom: 0.25rem;
-  }
-  .gal-meta { font-size: 0.72rem; color: var(--ivory-dim); font-style: italic; }
-
-  /* ══════════════════════════════════════════════
-     §7  ÜBER DEN MYTHOS HINAUS  (PLACEHOLDER)
+     §5  ÜBER DEN MYTHOS HINAUS  (PLACEHOLDER)
   ══════════════════════════════════════════════ */
   #ueberden { background: var(--black); }
 
@@ -721,8 +677,7 @@
      SMOOTH SECTION TRANSITIONS
   ══════════════════════════════════════════════ */
   #originaltext::before,
-  #grammatik::before,
-  #galerie::before {
+  #grammatik::before {
     content: '';
     position: absolute;
     top: -120px; left: 0; right: 0;
@@ -744,13 +699,13 @@
     z-index: 1;
   }
 
-  /* §1 → §2: sanfter Ausklang nach unten */
+  /* §1 → §2: sanfter Ausklang nach unten (beide schwarz) */
   #inhaltsangabe::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 140px;
-    background: linear-gradient(to bottom, transparent, var(--navy));
+    background: linear-gradient(to bottom, transparent, var(--black));
     pointer-events: none;
     z-index: 1;
   }
@@ -787,20 +742,33 @@
     .edition-wrap { grid-template-columns: 1fr; }
     .parallel-cols { grid-template-columns: 1fr; gap: 0; }
 
-    .gallery-grid {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto;
-    }
-    .gal-item:nth-child(1) { grid-row: span 1; grid-column: span 2; }
-
     .scan-row { overflow-x: auto; }
   }
 
   @media (max-width: 600px) {
-    .gallery-grid { grid-template-columns: 1fr; }
-    .gal-item:nth-child(1) { grid-column: span 1; }
     .hero-title { font-size: 2.4rem; }
   }
+
+  /* ══════════════════════════════════════════════
+     FUSS-GRENZEN: nur in der rt-Zeile sichtbar
+  ══════════════════════════════════════════════ */
+  .scan-latin ruby.foot-end rt::after {
+    content: ' |';
+    margin-left: 3px;
+    color: rgba(201,164,74,0.45);
+    font-weight: 400;
+  }
+
+  /* ══════════════════════════════════════════════
+     VOKABULAR: aufklappbar
+  ══════════════════════════════════════════════ */
+  .vocab-item { cursor: pointer; padding: 0.4rem 0.3rem; margin: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.2s; }
+  .vocab-item:hover { background: rgba(201,164,74,0.05); }
+  .vocab-item .vocab-d { display: none; }
+  .vocab-item.open .vocab-d { display: block; }
+  .vocab-item .vocab-w { margin-bottom: 0; }
   </style>
 </head>
 <body>
@@ -812,11 +780,11 @@
   <a class="nav-brand" href="#">Ovid · Metamorphosen II</a>
   <ul class="nav-links">
     <li><a href="#inhaltsangabe">Mythos</a></li>
-    <li><a href="#originaltext">Originaltext</a></li>
     <li><a href="#metrik">Metrik</a></li>
     <li><a href="#grammatik">Grammatik</a></li>
     <li><a href="#schulausgabe">Schulausgabe</a></li>
-    <li><a href="#galerie">Kunst</a></li>
+    <li><a href="#ueberden">Reflexion</a></li>
+    <li><a href="#originaltext">Originaltext</a></li>
   </ul>
 </nav>
 
@@ -870,162 +838,11 @@
 </section>
 
 <!-- ════════════════════════════════════════
-     §2  ORIGINALTEXT — FIX 2 + 3 + 4
-════════════════════════════════════════ -->
-<section id="originaltext">
-  <div class="container">
-    <span class="sec-label">§ 2 · Text</span>
-    <h2 class="sec-title reveal">Lateinischer Originaltext<br>mit deutscher Übersetzung</h2>
-
-    <div class="toggle-bar reveal" role="group" aria-label="Textansicht wählen">
-      <button class="tbtn on" id="btn-lat" onclick="showPanel('lat')">Latein</button>
-      <button class="tbtn"    id="btn-de"  onclick="showPanel('de')">Deutsch</button>
-      <button class="tbtn"    id="btn-par" onclick="showPanel('par')">Parallel</button>
-    </div>
-
-    <!-- ── FIX 2: Korrekter lateinischer Originaltext ── -->
-    <div class="text-panel on" id="panel-lat">
-      <ul class="verse-list">
-        <li class="v-line"><span class="v-num">833</span><span class="v-lat">Has ubi verborum poenas mentisque profanae</span></li>
-        <li class="v-line"><span class="v-num">834</span><span class="v-lat">cepit Atlantiades, dictas a Pallade terras</span></li>
-        <li class="v-line"><span class="v-num">835</span><span class="v-lat">linquit et ingreditor iactatis aethera pennis.</span></li>
-        <li class="v-line"><span class="v-num">836</span><span class="v-lat">sevocat hunc genitor nec causam fassus amoris</span></li>
-        <li class="v-line"><span class="v-num">837</span><span class="v-lat">'fide minister' ait 'iussorum, nate, meorum,</span></li>
-        <li class="v-line"><span class="v-num">838</span><span class="v-lat">pelle moram solitoque celer delabere cursu,</span></li>
-        <li class="v-line"><span class="v-num">839</span><span class="v-lat">quaeque tuam matrem tellus a parte sinistra</span></li>
-        <li class="v-line"><span class="v-num">840</span><span class="v-lat">suspicit (indigenae Sidonida nomine dicunt),</span></li>
-        <li class="v-line"><span class="v-num">841</span><span class="v-lat">hanc pete, quodque procul montano gramine pasci</span></li>
-        <li class="v-line"><span class="v-num">842</span><span class="v-lat">armentum regale vides, ad litora verte.'</span></li>
-        <li class="v-line"><span class="v-num">843</span><span class="v-lat">dixit, et expulsi iamdudum monte iuvenci</span></li>
-        <li class="v-line"><span class="v-num">844</span><span class="v-lat">litora iussa petunt, ubi magni filia regis</span></li>
-        <li class="v-line"><span class="v-num">845</span><span class="v-lat">ludere virginibus Tyriis comitata solebat.</span></li>
-        <li class="v-line"><span class="v-num">846</span><span class="v-lat">non bene conveniunt nec in una sede morantur</span></li>
-        <li class="v-line"><span class="v-num">847</span><span class="v-lat">maiestas et amor: sceptri gravitate relicta</span></li>
-        <li class="v-line"><span class="v-num">848</span><span class="v-lat">ille pater rectorque deum, cui dextra trisulcis</span></li>
-        <li class="v-line"><span class="v-num">849</span><span class="v-lat">ignibus armata est, qui nutu concutit orbem,</span></li>
-        <li class="v-line"><span class="v-num">850</span><span class="v-lat">induitur faciem tauri mixtusque iuvencis</span></li>
-        <li class="v-line"><span class="v-num">851</span><span class="v-lat">mugit et in teneris formosus obambulat herbis.</span></li>
-        <li class="v-line"><span class="v-num">852</span><span class="v-lat">quippe color nivis est, quam nec vestigia duri</span></li>
-        <li class="v-line"><span class="v-num">853</span><span class="v-lat">calcavere pedis nec solvit aquaticus auster;</span></li>
-        <li class="v-line"><span class="v-num">854</span><span class="v-lat">colla toris exstant, armis palearia pendent,</span></li>
-        <li class="v-line"><span class="v-num">855</span><span class="v-lat">cornua parva quidem, sed quae contendere possis</span></li>
-        <li class="v-line"><span class="v-num">856</span><span class="v-lat">facta manu, puraque magis perlucida gemma;</span></li>
-        <li class="v-line"><span class="v-num">857</span><span class="v-lat">nullae in fronte minae nec formidabile lumen:</span></li>
-        <li class="v-line"><span class="v-num">858</span><span class="v-lat">pacem vultus habet. miratur Agenore nata,</span></li>
-        <li class="v-line"><span class="v-num">859</span><span class="v-lat">quod tam formosus, quod proelia nulla minetur;</span></li>
-        <li class="v-line"><span class="v-num">860</span><span class="v-lat">sed quamvis mitem metuit contingere primo:</span></li>
-        <li class="v-line"><span class="v-num">861</span><span class="v-lat">mox adit et flores ad candida porrigit ora.</span></li>
-        <li class="v-line"><span class="v-num">862</span><span class="v-lat">gaudet amans et, dum veniat sperata voluptas,</span></li>
-        <li class="v-line"><span class="v-num">863</span><span class="v-lat">oscula dat manibus; vix iam, vix cetera differt</span></li>
-        <li class="v-line"><span class="v-num">864</span><span class="v-lat">et nunc adludit viridique exsultat in herba,</span></li>
-        <li class="v-line"><span class="v-num">865</span><span class="v-lat">nunc latus in fulvis niveum deponit harenis</span></li>
-        <li class="v-line"><span class="v-num">866</span><span class="v-lat">paulatimque metu dempto modo pectora praebet</span></li>
-        <li class="v-line"><span class="v-num">867</span><span class="v-lat">virginea plaudenda manu, modo cornua sertis</span></li>
-        <li class="v-line"><span class="v-num">868</span><span class="v-lat">impedienda novis. ausa est quoque regia virgo</span></li>
-        <li class="v-line"><span class="v-num">869</span><span class="v-lat">nescia, quem premeret, tergo considere tauri:</span></li>
-        <li class="v-line"><span class="v-num">870</span><span class="v-lat">cum deus a terra siccoque a litore sensim</span></li>
-        <li class="v-line"><span class="v-num">871</span><span class="v-lat">falsa pedum primis vestigia ponit in undis,</span></li>
-        <li class="v-line"><span class="v-num">872</span><span class="v-lat">inde abit ulterius mediique per aequora ponti</span></li>
-        <li class="v-line"><span class="v-num">873</span><span class="v-lat">fert praedam. pavet haec litusque ablata relictum</span></li>
-        <li class="v-line"><span class="v-num">874</span><span class="v-lat">respicit et dextra cornum tenet, altera dorso</span></li>
-        <li class="v-line"><span class="v-num">875</span><span class="v-lat">inposita est; tremulae sinuantur flamine vestes.</span></li>
-      </ul>
-    </div>
-
-    <!-- ── FIX 3: Korrekte Reclam-Übersetzung ── -->
-    <div class="text-panel" id="panel-de">
-      <ul class="verse-list">
-        <li class="v-line"><span class="v-num">833–835</span><span class="v-de">Sobald der Sohn der Atlastochter jenes Mädchen so für ihre Worte und für ihre unheilige Gesinnung bestraft hat, verlässt er das nach Pallas benannte Land, schlägt mit den Flügeln und gelangt in den Himmel.</span></li>
-        <li class="v-line"><span class="v-num">836–842</span><span class="v-de">Ihn ruft sein Vater beiseite und spricht zu ihm, ohne ihm den wahren Grund seines Auftrags, nämlich die Liebe, zu nennen: »Mein Sohn, du treuer Bote meiner Befehle, spute dich und gleite mit gewohnter Schnelligkeit vom Himmel hinab in das Land, das zum Gestirn deiner Mutter emporblickt und links von dir liegt. Die Eingeborenen nennen es Sidonis. Dorthin eile, und die königliche Rinderherde, die du dort in der Ferne Gebirgskräuter fressen siehst, lenke zur Küste!«</span></li>
-        <li class="v-line"><span class="v-num">843–845</span><span class="v-de">Sprach's, und schon sind die Jungstiere vom Berg vertrieben und ziehen, wie befohlen, zum Strand, wo die Tochter des großen Königs in Begleitung junger Mädchen aus Tyros zu spielen pflegte.</span></li>
-        <li class="v-line"><span class="v-num">846–851</span><span class="v-de">Schlecht vertragen sich Würde und Liebe; selten wohnen sie beisammen! Es trennt sich von seinem majestätischen Szepter der Vater und Herrscher der Götter, dessen rechte Hand mit dem dreizackigen Blitz bewaffnet ist. Der Gott, der durch sein Nicken die Welt erschüttert, nimmt die Gestalt eines Stieres an, mischt sich unter die Jungstiere, muht und spaziert anmutig durch die zarten Gräser.</span></li>
-        <li class="v-line"><span class="v-num">852–857</span><span class="v-de">Ist er doch weiß wie Schnee, in den noch keine harte Sohle ihre Spuren getreten hat und den kein nasser Südwind schmelzen ließ. Der Hals strotzt vor Muskeln, am Bug hängen die Wammen, die Hörner sind zwar klein, doch könnte man sie für kunstvolle Handarbeit halten, auch sind sie durchscheinender als reine Edelsteine. Die Stirn hat nichts Drohendes, das Auge nichts Furchterregendes, die Miene strahlt Frieden aus.</span></li>
-        <li class="v-line"><span class="v-num">858–861</span><span class="v-de">Es staunt Agenors Tochter, dass er so schön ist, dass er nicht angriffslustig und bedrohlich wirkt. Aber trotz seiner Sanftmut fürchtet sie sich zunächst, ihn anzurühren. Bald nähert sie sich ihm und hält ihm Blumen ans schneeweiße Maul.</span></li>
-        <li class="v-line"><span class="v-num">862–867</span><span class="v-de">Da freut sich der Liebende, und in der Vorfreude auf die erhofften Wonnen küsst er ihr die Hände. Kaum, ja kaum kann er das Weitere noch aufschieben. Bald kommt er spielerisch auf sie zu, bald springt er im grünen Grase umher, bald legt er seine schneeweiße Flanke in den gelben Sand. Und nachdem er ihr allmählich die Furcht genommen hat, lässt er sich bald die Brust von der Mädchenhand tätscheln, bald die Hörner mit frischen Girlanden umwinden.</span></li>
-        <li class="v-line"><span class="v-num">868–869</span><span class="v-de">Es wagte die Königstochter sogar, ohne zu wissen, auf wem sie ritt, sich auf den Rücken des Stieres zu setzen.</span></li>
-        <li class="v-line"><span class="v-num">870–872</span><span class="v-de">Da strebt der Gott allmählich vom Festland und dem trockenen Strand hinweg und setzt seine Füße trügerisch ein wenig ins Wasser; dann entfernt er sich weiter und trägt seine Beute mitten über die Meeresfläche.</span></li>
-        <li class="v-line"><span class="v-num">873–875</span><span class="v-de">Sie ängstigt sich und blickt, die Entführte, zum Strand zurück, den sie verlassen hat. Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem Rücken. Das flatternde Kleid bauscht sich im Winde.</span></li>
-      </ul>
-    </div>
-
-    <!-- ── FIX 4: Parallelansicht – alle Verse 833–875 ── -->
-    <div class="text-panel" id="panel-par">
-      <div class="parallel-cols">
-        <div class="par-col">
-          <h3>Latein · Ovid</h3>
-          <ul class="verse-list">
-            <li class="v-line"><span class="v-num">833</span><span class="v-lat">Has ubi verborum poenas mentisque profanae</span></li>
-            <li class="v-line"><span class="v-num">834</span><span class="v-lat">cepit Atlantiades, dictas a Pallade terras</span></li>
-            <li class="v-line"><span class="v-num">835</span><span class="v-lat">linquit et ingreditor iactatis aethera pennis.</span></li>
-            <li class="v-line"><span class="v-num">836</span><span class="v-lat">sevocat hunc genitor nec causam fassus amoris</span></li>
-            <li class="v-line"><span class="v-num">837</span><span class="v-lat">'fide minister' ait 'iussorum, nate, meorum,</span></li>
-            <li class="v-line"><span class="v-num">838</span><span class="v-lat">pelle moram solitoque celer delabere cursu,</span></li>
-            <li class="v-line"><span class="v-num">839</span><span class="v-lat">quaeque tuam matrem tellus a parte sinistra</span></li>
-            <li class="v-line"><span class="v-num">840</span><span class="v-lat">suspicit (indigenae Sidonida nomine dicunt),</span></li>
-            <li class="v-line"><span class="v-num">841</span><span class="v-lat">hanc pete, quodque procul montano gramine pasci</span></li>
-            <li class="v-line"><span class="v-num">842</span><span class="v-lat">armentum regale vides, ad litora verte.'</span></li>
-            <li class="v-line"><span class="v-num">843</span><span class="v-lat">dixit, et expulsi iamdudum monte iuvenci</span></li>
-            <li class="v-line"><span class="v-num">844</span><span class="v-lat">litora iussa petunt, ubi magni filia regis</span></li>
-            <li class="v-line"><span class="v-num">845</span><span class="v-lat">ludere virginibus Tyriis comitata solebat.</span></li>
-            <li class="v-line"><span class="v-num">846</span><span class="v-lat">non bene conveniunt nec in una sede morantur</span></li>
-            <li class="v-line"><span class="v-num">847</span><span class="v-lat">maiestas et amor: sceptri gravitate relicta</span></li>
-            <li class="v-line"><span class="v-num">848</span><span class="v-lat">ille pater rectorque deum, cui dextra trisulcis</span></li>
-            <li class="v-line"><span class="v-num">849</span><span class="v-lat">ignibus armata est, qui nutu concutit orbem,</span></li>
-            <li class="v-line"><span class="v-num">850</span><span class="v-lat">induitur faciem tauri mixtusque iuvencis</span></li>
-            <li class="v-line"><span class="v-num">851</span><span class="v-lat">mugit et in teneris formosus obambulat herbis.</span></li>
-            <li class="v-line"><span class="v-num">852</span><span class="v-lat">quippe color nivis est, quam nec vestigia duri</span></li>
-            <li class="v-line"><span class="v-num">853</span><span class="v-lat">calcavere pedis nec solvit aquaticus auster;</span></li>
-            <li class="v-line"><span class="v-num">854</span><span class="v-lat">colla toris exstant, armis palearia pendent,</span></li>
-            <li class="v-line"><span class="v-num">855</span><span class="v-lat">cornua parva quidem, sed quae contendere possis</span></li>
-            <li class="v-line"><span class="v-num">856</span><span class="v-lat">facta manu, puraque magis perlucida gemma;</span></li>
-            <li class="v-line"><span class="v-num">857</span><span class="v-lat">nullae in fronte minae nec formidabile lumen:</span></li>
-            <li class="v-line"><span class="v-num">858</span><span class="v-lat">pacem vultus habet. miratur Agenore nata,</span></li>
-            <li class="v-line"><span class="v-num">859</span><span class="v-lat">quod tam formosus, quod proelia nulla minetur;</span></li>
-            <li class="v-line"><span class="v-num">860</span><span class="v-lat">sed quamvis mitem metuit contingere primo:</span></li>
-            <li class="v-line"><span class="v-num">861</span><span class="v-lat">mox adit et flores ad candida porrigit ora.</span></li>
-            <li class="v-line"><span class="v-num">862</span><span class="v-lat">gaudet amans et, dum veniat sperata voluptas,</span></li>
-            <li class="v-line"><span class="v-num">863</span><span class="v-lat">oscula dat manibus; vix iam, vix cetera differt</span></li>
-            <li class="v-line"><span class="v-num">864</span><span class="v-lat">et nunc adludit viridique exsultat in herba,</span></li>
-            <li class="v-line"><span class="v-num">865</span><span class="v-lat">nunc latus in fulvis niveum deponit harenis</span></li>
-            <li class="v-line"><span class="v-num">866</span><span class="v-lat">paulatimque metu dempto modo pectora praebet</span></li>
-            <li class="v-line"><span class="v-num">867</span><span class="v-lat">virginea plaudenda manu, modo cornua sertis</span></li>
-            <li class="v-line"><span class="v-num">868</span><span class="v-lat">impedienda novis. ausa est quoque regia virgo</span></li>
-            <li class="v-line"><span class="v-num">869</span><span class="v-lat">nescia, quem premeret, tergo considere tauri:</span></li>
-            <li class="v-line"><span class="v-num">870</span><span class="v-lat">cum deus a terra siccoque a litore sensim</span></li>
-            <li class="v-line"><span class="v-num">871</span><span class="v-lat">falsa pedum primis vestigia ponit in undis,</span></li>
-            <li class="v-line"><span class="v-num">872</span><span class="v-lat">inde abit ulterius mediique per aequora ponti</span></li>
-            <li class="v-line"><span class="v-num">873</span><span class="v-lat">fert praedam. pavet haec litusque ablata relictum</span></li>
-            <li class="v-line"><span class="v-num">874</span><span class="v-lat">respicit et dextra cornum tenet, altera dorso</span></li>
-            <li class="v-line"><span class="v-num">875</span><span class="v-lat">inposita est; tremulae sinuantur flamine vestes.</span></li>
-          </ul>
-        </div>
-        <div class="par-col">
-          <h3>Deutsch · Reclam</h3>
-          <ul class="verse-list">
-            <li class="v-line"><span class="v-num">833–835</span><span class="v-de">Sobald der Sohn der Atlastochter jenes Mädchen so für ihre Worte und für ihre unheilige Gesinnung bestraft hat, verlässt er das nach Pallas benannte Land, schlägt mit den Flügeln und gelangt in den Himmel.</span></li>
-            <li class="v-line"><span class="v-num">836–842</span><span class="v-de">Ihn ruft sein Vater beiseite und spricht zu ihm, ohne ihm den wahren Grund seines Auftrags zu nennen: »Mein Sohn, spute dich und gleite mit gewohnter Schnelligkeit hinab in das Land, das die Eingeborenen Sidonis nennen. Lenke die königliche Rinderherde zur Küste!«</span></li>
-            <li class="v-line"><span class="v-num">843–845</span><span class="v-de">Sprach's — und schon sind die Jungstiere vom Berg vertrieben und ziehen zum Strand, wo die Tochter des großen Königs mit Mädchen aus Tyros zu spielen pflegte.</span></li>
-            <li class="v-line"><span class="v-num">846–851</span><span class="v-de">Schlecht vertragen sich Würde und Liebe. Der Vater und Herrscher der Götter nimmt die Gestalt eines Stieres an, mischt sich unter die Jungstiere, muht und spaziert anmutig durch die zarten Gräser.</span></li>
-            <li class="v-line"><span class="v-num">852–857</span><span class="v-de">Er ist weiß wie unberührter Schnee. Der Hals strotzt vor Muskeln, die Hörner sind durchscheinender als reine Edelsteine. Die Stirn hat nichts Drohendes, die Miene strahlt Frieden aus.</span></li>
-            <li class="v-line"><span class="v-num">858–861</span><span class="v-de">Agenors Tochter staunt über seine Schönheit. Trotz seiner Sanftmut fürchtet sie sich anfangs, ihn anzurühren. Bald hält sie ihm Blumen ans schneeweiße Maul.</span></li>
-            <li class="v-line"><span class="v-num">862–867</span><span class="v-de">Der Liebende freut sich und küsst ihr die Hände. Er spielt mit ihr, springt im grünen Gras umher, lässt sich die Brust tätscheln und die Hörner mit frischen Girlanden umwinden.</span></li>
-            <li class="v-line"><span class="v-num">868–869</span><span class="v-de">Es wagte die Königstochter sogar, ohne zu wissen, auf wem sie ritt, sich auf den Rücken des Stieres zu setzen.</span></li>
-            <li class="v-line"><span class="v-num">870–872</span><span class="v-de">Da strebt der Gott allmählich vom Festland und dem trockenen Strand hinweg, setzt seine Füße trügerisch ins Wasser und trägt seine Beute mitten über die Meeresfläche.</span></li>
-            <li class="v-line"><span class="v-num">873–875</span><span class="v-de">Sie ängstigt sich und blickt, die Entführte, zum verlassenen Strand zurück. Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem Rücken. Das flatternde Kleid bauscht sich im Winde.</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     §3  METRISCHE ANALYSE
+     §2  METRISCHE ANALYSE
 ════════════════════════════════════════ -->
 <section id="metrik">
   <div class="container">
-    <span class="sec-label">§ 3 · Metrische Analyse</span>
+    <span class="sec-label">§ 2 · Metrische Analyse</span>
     <h2 class="sec-title reveal">Daktylischer Hexameter<br>— Verse 871–875</h2>
 
     <p class="meter-intro reveal">
@@ -1064,7 +881,7 @@
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 871 · falsa pedum primis vestigia ponit in undis</p>
       <div class="scan-latin">
-        <ruby>fal<rt class="long">—</rt></ruby><ruby>sa<rt class="short">∪</rt></ruby> <ruby>pe<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>dum<rt class="long">—</rt></ruby> <ruby>prī<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>mīs<rt class="long">—</rt></ruby> <ruby>ves<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>tī<rt class="long">—</rt></ruby><ruby>gi<rt class="short">∪</rt></ruby><ruby>a<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>pō<rt class="long">—</rt></ruby><ruby>nit<rt class="short">∪</rt></ruby> <ruby>in<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>un<rt class="long">—</rt></ruby><ruby>dīs<rt class="anc">×</rt></ruby>
+        <ruby>fal<rt class="long">—</rt></ruby>-<ruby>sa<rt class="short">∪</rt></ruby> <ruby class="foot-end">pe<rt class="short">∪</rt></ruby>-<ruby>dum<rt class="long">—</rt></ruby> <ruby class="foot-end">prī<rt class="long">—</rt></ruby>-<ruby>mīs<rt class="long">—</rt></ruby> <ruby class="foot-end">ves<rt class="long">—</rt></ruby>-<ruby>tī<rt class="long">—</rt></ruby>-<ruby>gi<rt class="short">∪</rt></ruby>-<ruby class="foot-end">a<rt class="short">∪</rt></ruby> <ruby>pō<rt class="long">—</rt></ruby>-<ruby>nit<rt class="short">∪</rt></ruby> <ruby class="foot-end">in<rt class="short">∪</rt></ruby> <ruby>un<rt class="long">—</rt></ruby>-<ruby>dīs<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl D">1 DAK</span>
@@ -1077,13 +894,14 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════════
-         VERS 872: inde abit ulterius mediique per aequora ponti
+         VERS 872: inde abit ulterius mediīque per aequora ponti
          Füße: DAK | SP | DAK | DAK | DAK | — ×
+         Elision: ind(e)abit; diī = ein langer Vokal (Doppel-i)
     ═══════════════════════════════════════════════════ -->
     <div class="scan-block reveal">
-      <p class="scan-verse-lbl">Vers 872 · inde abit ulterius mediique per aequora ponti</p>
+      <p class="scan-verse-lbl">Vers 872 · inde abit ulterius mediīque per aequora ponti</p>
       <div class="scan-latin">
-        <ruby>in<rt class="long">—</rt></ruby><ruby>d<span class="elision">(e)</span>a<rt class="short">∪</rt></ruby><ruby>bit<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>ul<rt class="long">—</rt></ruby><ruby>te<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>ri<rt class="long">—</rt></ruby><ruby>us<rt class="short">∪</rt></ruby> <ruby>me<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>di<rt class="long">—</rt></ruby><ruby>ī<rt class="short">∪</rt></ruby><ruby>que<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>per<rt class="long">—</rt></ruby> <ruby>ae<rt class="short">∪</rt></ruby><ruby>quo<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>pon<rt class="long">—</rt></ruby><ruby>tī<rt class="anc">×</rt></ruby>
+        <ruby>in<rt class="long">—</rt></ruby>-<ruby>d<span class="elision">(e)</span>a<rt class="short">∪</rt></ruby>-<ruby class="foot-end">bit<rt class="short">∪</rt></ruby> <ruby>ul<rt class="long">—</rt></ruby>-<ruby class="foot-end">te<rt class="long">—</rt></ruby>-<ruby>ri<rt class="long">—</rt></ruby>-<ruby>us<rt class="short">∪</rt></ruby> <ruby class="foot-end">me<rt class="short">∪</rt></ruby>-<ruby>diī<rt class="long">—</rt></ruby>-<ruby>que<rt class="short">∪</rt></ruby>-<ruby class="foot-end">per<rt class="short">∪</rt></ruby> <ruby>ae<rt class="long">—</rt></ruby>-<ruby>quo<rt class="short">∪</rt></ruby>-<ruby class="foot-end">ra<rt class="short">∪</rt></ruby> <ruby>pon<rt class="long">—</rt></ruby>-<ruby>tī<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl D">1 DAK</span>
@@ -1102,7 +920,7 @@
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 873 · fert praedam. pavet haec litusque ablata relictum</p>
       <div class="scan-latin">
-        <ruby>fert<rt class="long">—</rt></ruby> <ruby>prae<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>dam<rt class="long">—</rt></ruby><span class="caesura"></span><ruby>pa<rt class="short">∪</rt></ruby><ruby>vet<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>haec<rt class="long">—</rt></ruby> <ruby>lī<rt class="short">∪</rt></ruby><ruby>tus<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>qu<span class="elision">(e)</span>ab<rt class="long">—</rt></ruby><ruby>lā<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>ta<rt class="long">—</rt></ruby> <ruby>re<rt class="short">∪</rt></ruby><ruby>lic<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>tum<rt class="long">—</rt></ruby><ruby> <rt class="anc">×</rt></ruby>
+        <ruby>fert<rt class="long">—</rt></ruby> <ruby class="foot-end">prae<rt class="long">—</rt></ruby>-<ruby>dam<rt class="long">—</rt></ruby><span class="caesura"></span><ruby>pa<rt class="short">∪</rt></ruby>-<ruby class="foot-end">vet<rt class="short">∪</rt></ruby> <ruby>haec<rt class="long">—</rt></ruby> <ruby>lī<rt class="short">∪</rt></ruby>-<ruby class="foot-end">tus<rt class="short">∪</rt></ruby>-<ruby>qu<span class="elision">(e)</span>ab<rt class="long">—</rt></ruby>-<ruby class="foot-end">lā<rt class="long">—</rt></ruby>-<ruby>ta<rt class="long">—</rt></ruby> <ruby>re<rt class="short">∪</rt></ruby>-<ruby class="foot-end">lic<rt class="short">∪</rt></ruby>-<ruby>tum<rt class="long">—</rt></ruby><ruby> <rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl P">1 SP</span>
@@ -1121,7 +939,7 @@
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 874 · respicit et dextra cornum tenet, altera dorso</p>
       <div class="scan-latin">
-        <ruby>res<rt class="long">—</rt></ruby><ruby>pi<rt class="short">∪</rt></ruby><ruby>ci<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>t<span class="elision">(et)</span><rt class="long">—</rt></ruby> <ruby>dex<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>trā<rt class="long">—</rt></ruby> <ruby>cor<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>num<rt class="long">—</rt></ruby> <ruby>te<rt class="short">∪</rt></ruby><ruby>net<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>al<rt class="long">—</rt></ruby><ruby>te<rt class="short">∪</rt></ruby><ruby>ra<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>dor<rt class="long">—</rt></ruby><ruby>sō<rt class="anc">×</rt></ruby>
+        <ruby>res<rt class="long">—</rt></ruby>-<ruby>pi<rt class="short">∪</rt></ruby>-<ruby class="foot-end">ci<rt class="short">∪</rt></ruby> <ruby>t<span class="elision">(et)</span><rt class="long">—</rt></ruby> <ruby class="foot-end">dex<rt class="long">—</rt></ruby>-<ruby>trā<rt class="long">—</rt></ruby> <ruby class="foot-end">cor<rt class="long">—</rt></ruby>-<ruby>num<rt class="long">—</rt></ruby> <ruby>te<rt class="short">∪</rt></ruby>-<ruby class="foot-end">net<rt class="short">∪</rt></ruby> <ruby>al<rt class="long">—</rt></ruby>-<ruby>te<rt class="short">∪</rt></ruby>-<ruby class="foot-end">ra<rt class="short">∪</rt></ruby> <ruby>dor<rt class="long">—</rt></ruby>-<ruby>sō<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl D">1 DAK</span>
@@ -1140,7 +958,7 @@
     <div class="scan-block reveal">
       <p class="scan-verse-lbl">Vers 875 · inposita est; tremulae sinuantur flamine vestes</p>
       <div class="scan-latin">
-        <ruby>in<rt class="long">—</rt></ruby><ruby>po<rt class="short">∪</rt></ruby><ruby>si<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>t<span class="elision">(a)</span>est<rt class="long">—</rt></ruby> <ruby>tre<rt class="short">∪</rt></ruby><ruby>mu<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>lae<rt class="long">—</rt></ruby> <ruby>si<rt class="short">∪</rt></ruby><ruby>nu<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>an<rt class="long">—</rt></ruby><ruby>tur<rt class="long">—</rt></ruby><span class="foot-sep"></span><ruby>flā<rt class="long">—</rt></ruby><ruby>mi<rt class="short">∪</rt></ruby><ruby>ne<rt class="short">∪</rt></ruby><span class="foot-sep"></span><ruby>ves<rt class="long">—</rt></ruby><ruby>tēs<rt class="anc">×</rt></ruby>
+        <ruby>in<rt class="long">—</rt></ruby>-<ruby>po<rt class="short">∪</rt></ruby>-<ruby class="foot-end">si<rt class="short">∪</rt></ruby>-<ruby>t<span class="elision">(a)</span>est<rt class="long">—</rt></ruby> <ruby>tre<rt class="short">∪</rt></ruby>-<ruby class="foot-end">mu<rt class="short">∪</rt></ruby>-<ruby>lae<rt class="long">—</rt></ruby> <ruby>si<rt class="short">∪</rt></ruby>-<ruby class="foot-end">nu<rt class="short">∪</rt></ruby>-<ruby>an<rt class="long">—</rt></ruby>-<ruby class="foot-end">tur<rt class="long">—</rt></ruby> <ruby>flā<rt class="long">—</rt></ruby>-<ruby>mi<rt class="short">∪</rt></ruby>-<ruby class="foot-end">ne<rt class="short">∪</rt></ruby> <ruby>ves<rt class="long">—</rt></ruby>-<ruby>tēs<rt class="anc">×</rt></ruby>
       </div>
       <div class="foot-types">
         <span class="ft-lbl D">1 DAK</span>
@@ -1152,15 +970,20 @@
       </div>
     </div>
 
+    <div class="scan-interp reveal" style="margin-top: 3rem; padding: 2rem; border: 2px dashed rgba(201,164,74,0.25); text-align: center;">
+      <p style="font-family: var(--font-head); font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--ivory-dim); margin-bottom: 0.5rem;">Interpretation der Metrik</p>
+      <p style="font-size: 0.82rem; color: var(--gold-dim); font-style: italic;">Hier folgt die Begründung der ausgewählten Stelle und die Interpretation, wie die Metrik die Aussage oder Stimmung unterstützt.</p>
+    </div>
+
   </div>
 </section>
 
 <!-- ════════════════════════════════════════
-     §4  GRAMMATIK
+     §3  GRAMMATIK
 ════════════════════════════════════════ -->
 <section id="grammatik">
   <div class="container">
-    <span class="sec-label">§ 4 · Grammatik</span>
+    <span class="sec-label">§ 3 · Grammatik</span>
     <h2 class="sec-title reveal">Ablativus absolutus<br>und Hyperbaton</h2>
 
     <div class="gram-grid">
@@ -1246,7 +1069,7 @@
 ════════════════════════════════════════ -->
 <section id="schulausgabe">
   <div class="container">
-    <span class="sec-label">§ 5 · Schulausgabe</span>
+    <span class="sec-label">§ 4 · Schulausgabe</span>
     <h2 class="sec-title reveal">Kommentierte Ausgabe<br>Verse 867–875</h2>
 
     <div class="edition-wrap">
@@ -1344,16 +1167,19 @@
         <!-- German translation -->
         <div class="de-trans-block">
           <h4>Deutsche Übersetzung (Reclam)</h4>
-          <p>
-            … lässt er sich bald die Brust von der Mädchenhand tätscheln, bald die Hörner mit
-            frischen Girlanden umwinden. Es wagte die Königstochter sogar, ohne zu wissen, auf
-            wem sie ritt, sich auf den Rücken des Stieres zu setzen. Da strebt der Gott allmählich
-            vom Festland und dem trockenen Strand hinweg und setzt seine Füße trügerisch ein wenig
-            ins Wasser; dann entfernt er sich weiter und trägt seine Beute mitten über die
-            Meeresfläche. Sie ängstigt sich und blickt, die Entführte, zum Strand zurück, den sie
-            verlassen hat. Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem
-            Rücken. Das flatternde Kleid bauscht sich im Winde.
-          </p>
+          <button class="eh-toggle" onclick="toggleTranslation(this)">Übersetzung anzeigen</button>
+          <div class="de-trans-content" style="display:none; margin-top: 1rem;">
+            <p>
+              … lässt er sich bald die Brust von der Mädchenhand tätscheln, bald die Hörner mit
+              frischen Girlanden umwinden. Es wagte die Königstochter sogar, ohne zu wissen, auf
+              wem sie ritt, sich auf den Rücken des Stieres zu setzen. Da strebt der Gott allmählich
+              vom Festland und dem trockenen Strand hinweg und setzt seine Füße trügerisch ein wenig
+              ins Wasser; dann entfernt er sich weiter und trägt seine Beute mitten über die
+              Meeresfläche. Sie ängstigt sich und blickt, die Entführte, zum Strand zurück, den sie
+              verlassen hat. Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem
+              Rücken. Das flatternde Kleid bauscht sich im Winde.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -1441,76 +1267,11 @@
 </section>
 
 <!-- ════════════════════════════════════════
-     §6  GALERIE — FIX 5: Rubens-URL korrigiert
-════════════════════════════════════════ -->
-<section id="galerie">
-  <div class="container">
-    <span class="sec-label">§ 6 · Rezeption</span>
-    <h2 class="sec-title reveal">Der Mythos in der Kunst</h2>
-
-    <div class="gallery-grid reveal">
-
-      <div class="gal-item">
-        <!-- orig: https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Tizian_-_Raub_der_Europa_-_MFA_Boston.jpg/800px-Tizian_-_Raub_der_Europa_-_MFA_Boston.jpg -->
-        <img
-          src="./images/113147.jpg"
-          alt="Tizian – Der Raub der Europa"
-          loading="lazy"
-        >
-        <div class="gal-overlay">
-          <div class="gal-title">Tizian (Tiziano Vecellio)</div>
-          <div class="gal-meta">Der Raub der Europa · ca. 1560–62 · Isabella Stewart Gardner Museum, Boston</div>
-        </div>
-      </div>
-
-      <div class="gal-item">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Paolo_Veronese_-_The_Rape_of_Europa_-_WGA24869.jpg/600px-Paolo_Veronese_-_The_Rape_of_Europa_-_WGA24869.jpg"
-          alt="Veronese – Der Raub der Europa"
-          loading="lazy"
-        >
-        <div class="gal-overlay">
-          <div class="gal-title">Paolo Veronese</div>
-          <div class="gal-meta">Der Raub der Europa · ca. 1580 · Palazzo Ducale, Venedig</div>
-        </div>
-      </div>
-
-      <div class="gal-item">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Europa_on_the_bull%2C_460-450_BC%2C_National_museum%2C_Tarquinia.jpg/600px-Europa_on_the_bull%2C_460-450_BC%2C_National_museum%2C_Tarquinia.jpg"
-          alt="Antike Vasenmalerei – Europa auf dem Stier"
-          loading="lazy"
-        >
-        <div class="gal-overlay">
-          <div class="gal-title">Attisch-rotfigurig</div>
-          <div class="gal-meta">Europa auf dem Stier · 460–450 v. Chr. · Museo Nazionale, Tarquinia</div>
-        </div>
-      </div>
-
-      <!-- FIX 5: Rubens-URL korrigiert (Prado-Version) -->
-      <div class="gal-item">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Peter_Paul_Rubens_-_The_Rape_of_Europa_%28Museo_del_Prado%29.jpg"
-          alt="Rubens – Der Raub der Europa, Prado"
-          loading="lazy"
-          onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rembrandt_-_The_Abduction_of_Europa_-_Google_Art_Project.jpg/600px-Rembrandt_-_The_Abduction_of_Europa_-_Google_Art_Project.jpg'"
-        >
-        <div class="gal-overlay">
-          <div class="gal-title">Peter Paul Rubens</div>
-          <div class="gal-meta">Der Raub der Europa · ca. 1628–29 · Museo del Prado, Madrid</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
      §7  ÜBER DEN MYTHOS HINAUS  (PLACEHOLDER)
 ════════════════════════════════════════ -->
 <section id="ueberden">
   <div class="container">
-    <span class="sec-label">§ 7 · Über den Mythos hinaus</span>
+    <span class="sec-label">§ 5 · Über den Mythos hinaus</span>
     <h2 class="sec-title reveal">Persönliche Reflexion</h2>
 
     <!-- ════════════════════════════════════════════════════════════
@@ -1540,6 +1301,154 @@
     </div>
 
     <!-- ════  ENDE PLATZHALTER  ════ -->
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §6  ORIGINALTEXT
+════════════════════════════════════════ -->
+<section id="originaltext">
+  <div class="container">
+    <span class="sec-label">§ 6 · Text</span>
+    <h2 class="sec-title reveal">Lateinischer Originaltext<br>mit deutscher Übersetzung</h2>
+
+    <div class="toggle-bar reveal" role="group" aria-label="Textansicht wählen">
+      <button class="tbtn on" id="btn-lat" onclick="showPanel('lat')">Latein</button>
+      <button class="tbtn"    id="btn-de"  onclick="showPanel('de')">Deutsch</button>
+      <button class="tbtn"    id="btn-par" onclick="showPanel('par')">Parallel</button>
+    </div>
+
+    <div class="text-panel on" id="panel-lat">
+      <ul class="verse-list">
+        <li class="v-line"><span class="v-num">833</span><span class="v-lat">Has ubi verborum poenas mentisque profanae</span></li>
+        <li class="v-line"><span class="v-num">834</span><span class="v-lat">cepit Atlantiades, dictas a Pallade terras</span></li>
+        <li class="v-line"><span class="v-num">835</span><span class="v-lat">linquit et ingreditor iactatis aethera pennis.</span></li>
+        <li class="v-line"><span class="v-num">836</span><span class="v-lat">sevocat hunc genitor nec causam fassus amoris</span></li>
+        <li class="v-line"><span class="v-num">837</span><span class="v-lat">'fide minister' ait 'iussorum, nate, meorum,</span></li>
+        <li class="v-line"><span class="v-num">838</span><span class="v-lat">pelle moram solitoque celer delabere cursu,</span></li>
+        <li class="v-line"><span class="v-num">839</span><span class="v-lat">quaeque tuam matrem tellus a parte sinistra</span></li>
+        <li class="v-line"><span class="v-num">840</span><span class="v-lat">suspicit (indigenae Sidonida nomine dicunt),</span></li>
+        <li class="v-line"><span class="v-num">841</span><span class="v-lat">hanc pete, quodque procul montano gramine pasci</span></li>
+        <li class="v-line"><span class="v-num">842</span><span class="v-lat">armentum regale vides, ad litora verte.'</span></li>
+        <li class="v-line"><span class="v-num">843</span><span class="v-lat">dixit, et expulsi iamdudum monte iuvenci</span></li>
+        <li class="v-line"><span class="v-num">844</span><span class="v-lat">litora iussa petunt, ubi magni filia regis</span></li>
+        <li class="v-line"><span class="v-num">845</span><span class="v-lat">ludere virginibus Tyriis comitata solebat.</span></li>
+        <li class="v-line"><span class="v-num">846</span><span class="v-lat">non bene conveniunt nec in una sede morantur</span></li>
+        <li class="v-line"><span class="v-num">847</span><span class="v-lat">maiestas et amor: sceptri gravitate relicta</span></li>
+        <li class="v-line"><span class="v-num">848</span><span class="v-lat">ille pater rectorque deum, cui dextra trisulcis</span></li>
+        <li class="v-line"><span class="v-num">849</span><span class="v-lat">ignibus armata est, qui nutu concutit orbem,</span></li>
+        <li class="v-line"><span class="v-num">850</span><span class="v-lat">induitur faciem tauri mixtusque iuvencis</span></li>
+        <li class="v-line"><span class="v-num">851</span><span class="v-lat">mugit et in teneris formosus obambulat herbis.</span></li>
+        <li class="v-line"><span class="v-num">852</span><span class="v-lat">quippe color nivis est, quam nec vestigia duri</span></li>
+        <li class="v-line"><span class="v-num">853</span><span class="v-lat">calcavere pedis nec solvit aquaticus auster;</span></li>
+        <li class="v-line"><span class="v-num">854</span><span class="v-lat">colla toris exstant, armis palearia pendent,</span></li>
+        <li class="v-line"><span class="v-num">855</span><span class="v-lat">cornua parva quidem, sed quae contendere possis</span></li>
+        <li class="v-line"><span class="v-num">856</span><span class="v-lat">facta manu, puraque magis perlucida gemma;</span></li>
+        <li class="v-line"><span class="v-num">857</span><span class="v-lat">nullae in fronte minae nec formidabile lumen:</span></li>
+        <li class="v-line"><span class="v-num">858</span><span class="v-lat">pacem vultus habet. miratur Agenore nata,</span></li>
+        <li class="v-line"><span class="v-num">859</span><span class="v-lat">quod tam formosus, quod proelia nulla minetur;</span></li>
+        <li class="v-line"><span class="v-num">860</span><span class="v-lat">sed quamvis mitem metuit contingere primo:</span></li>
+        <li class="v-line"><span class="v-num">861</span><span class="v-lat">mox adit et flores ad candida porrigit ora.</span></li>
+        <li class="v-line"><span class="v-num">862</span><span class="v-lat">gaudet amans et, dum veniat sperata voluptas,</span></li>
+        <li class="v-line"><span class="v-num">863</span><span class="v-lat">oscula dat manibus; vix iam, vix cetera differt</span></li>
+        <li class="v-line"><span class="v-num">864</span><span class="v-lat">et nunc adludit viridique exsultat in herba,</span></li>
+        <li class="v-line"><span class="v-num">865</span><span class="v-lat">nunc latus in fulvis niveum deponit harenis</span></li>
+        <li class="v-line"><span class="v-num">866</span><span class="v-lat">paulatimque metu dempto modo pectora praebet</span></li>
+        <li class="v-line"><span class="v-num">867</span><span class="v-lat">virginea plaudenda manu, modo cornua sertis</span></li>
+        <li class="v-line"><span class="v-num">868</span><span class="v-lat">impedienda novis. ausa est quoque regia virgo</span></li>
+        <li class="v-line"><span class="v-num">869</span><span class="v-lat">nescia, quem premeret, tergo considere tauri:</span></li>
+        <li class="v-line"><span class="v-num">870</span><span class="v-lat">cum deus a terra siccoque a litore sensim</span></li>
+        <li class="v-line"><span class="v-num">871</span><span class="v-lat">falsa pedum primis vestigia ponit in undis,</span></li>
+        <li class="v-line"><span class="v-num">872</span><span class="v-lat">inde abit ulterius mediīque per aequora ponti</span></li>
+        <li class="v-line"><span class="v-num">873</span><span class="v-lat">fert praedam. pavet haec litusque ablata relictum</span></li>
+        <li class="v-line"><span class="v-num">874</span><span class="v-lat">respicit et dextra cornum tenet, altera dorso</span></li>
+        <li class="v-line"><span class="v-num">875</span><span class="v-lat">inposita est; tremulae sinuantur flamine vestes.</span></li>
+      </ul>
+    </div>
+
+    <div class="text-panel" id="panel-de">
+      <ul class="verse-list">
+        <li class="v-line"><span class="v-num">833–835</span><span class="v-de">Sobald der Sohn der Atlastochter jenes Mädchen so für ihre Worte und für ihre unheilige Gesinnung bestraft hat, verlässt er das nach Pallas benannte Land, schlägt mit den Flügeln und gelangt in den Himmel.</span></li>
+        <li class="v-line"><span class="v-num">836–842</span><span class="v-de">Ihn ruft sein Vater beiseite und spricht zu ihm, ohne ihm den wahren Grund seines Auftrags, nämlich die Liebe, zu nennen: »Mein Sohn, du treuer Bote meiner Befehle, spute dich und gleite mit gewohnter Schnelligkeit vom Himmel hinab in das Land, das zum Gestirn deiner Mutter emporblickt und links von dir liegt. Die Eingeborenen nennen es Sidonis. Dorthin eile, und die königliche Rinderherde, die du dort in der Ferne Gebirgskräuter fressen siehst, lenke zur Küste!«</span></li>
+        <li class="v-line"><span class="v-num">843–845</span><span class="v-de">Sprach's, und schon sind die Jungstiere vom Berg vertrieben und ziehen, wie befohlen, zum Strand, wo die Tochter des großen Königs in Begleitung junger Mädchen aus Tyros zu spielen pflegte.</span></li>
+        <li class="v-line"><span class="v-num">846–851</span><span class="v-de">Schlecht vertragen sich Würde und Liebe; selten wohnen sie beisammen! Es trennt sich von seinem majestätischen Szepter der Vater und Herrscher der Götter, dessen rechte Hand mit dem dreizackigen Blitz bewaffnet ist. Der Gott, der durch sein Nicken die Welt erschüttert, nimmt die Gestalt eines Stieres an, mischt sich unter die Jungstiere, muht und spaziert anmutig durch die zarten Gräser.</span></li>
+        <li class="v-line"><span class="v-num">852–857</span><span class="v-de">Ist er doch weiß wie Schnee, in den noch keine harte Sohle ihre Spuren getreten hat und den kein nasser Südwind schmelzen ließ. Der Hals strotzt vor Muskeln, am Bug hängen die Wammen, die Hörner sind zwar klein, doch könnte man sie für kunstvolle Handarbeit halten, auch sind sie durchscheinender als reine Edelsteine. Die Stirn hat nichts Drohendes, das Auge nichts Furchterregendes, die Miene strahlt Frieden aus.</span></li>
+        <li class="v-line"><span class="v-num">858–861</span><span class="v-de">Es staunt Agenors Tochter, dass er so schön ist, dass er nicht angriffslustig und bedrohlich wirkt. Aber trotz seiner Sanftmut fürchtet sie sich zunächst, ihn anzurühren. Bald nähert sie sich ihm und hält ihm Blumen ans schneeweiße Maul.</span></li>
+        <li class="v-line"><span class="v-num">862–867</span><span class="v-de">Da freut sich der Liebende, und in der Vorfreude auf die erhofften Wonnen küsst er ihr die Hände. Kaum, ja kaum kann er das Weitere noch aufschieben. Bald kommt er spielerisch auf sie zu, bald springt er im grünen Grase umher, bald legt er seine schneeweiße Flanke in den gelben Sand. Und nachdem er ihr allmählich die Furcht genommen hat, lässt er sich bald die Brust von der Mädchenhand tätscheln, bald die Hörner mit frischen Girlanden umwinden.</span></li>
+        <li class="v-line"><span class="v-num">868–869</span><span class="v-de">Es wagte die Königstochter sogar, ohne zu wissen, auf wem sie ritt, sich auf den Rücken des Stieres zu setzen.</span></li>
+        <li class="v-line"><span class="v-num">870–872</span><span class="v-de">Da strebt der Gott allmählich vom Festland und dem trockenen Strand hinweg und setzt seine Füße trügerisch ein wenig ins Wasser; dann entfernt er sich weiter und trägt seine Beute mitten über die Meeresfläche.</span></li>
+        <li class="v-line"><span class="v-num">873–875</span><span class="v-de">Sie ängstigt sich und blickt, die Entführte, zum Strand zurück, den sie verlassen hat. Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem Rücken. Das flatternde Kleid bauscht sich im Winde.</span></li>
+      </ul>
+    </div>
+
+    <div class="text-panel" id="panel-par">
+      <div class="parallel-cols">
+        <div class="par-col">
+          <h3>Latein · Ovid</h3>
+          <ul class="verse-list">
+            <li class="v-line"><span class="v-num">833</span><span class="v-lat">Has ubi verborum poenas mentisque profanae</span></li>
+            <li class="v-line"><span class="v-num">834</span><span class="v-lat">cepit Atlantiades, dictas a Pallade terras</span></li>
+            <li class="v-line"><span class="v-num">835</span><span class="v-lat">linquit et ingreditor iactatis aethera pennis.</span></li>
+            <li class="v-line"><span class="v-num">836</span><span class="v-lat">sevocat hunc genitor nec causam fassus amoris</span></li>
+            <li class="v-line"><span class="v-num">837</span><span class="v-lat">'fide minister' ait 'iussorum, nate, meorum,</span></li>
+            <li class="v-line"><span class="v-num">838</span><span class="v-lat">pelle moram solitoque celer delabere cursu,</span></li>
+            <li class="v-line"><span class="v-num">839</span><span class="v-lat">quaeque tuam matrem tellus a parte sinistra</span></li>
+            <li class="v-line"><span class="v-num">840</span><span class="v-lat">suspicit (indigenae Sidonida nomine dicunt),</span></li>
+            <li class="v-line"><span class="v-num">841</span><span class="v-lat">hanc pete, quodque procul montano gramine pasci</span></li>
+            <li class="v-line"><span class="v-num">842</span><span class="v-lat">armentum regale vides, ad litora verte.'</span></li>
+            <li class="v-line"><span class="v-num">843</span><span class="v-lat">dixit, et expulsi iamdudum monte iuvenci</span></li>
+            <li class="v-line"><span class="v-num">844</span><span class="v-lat">litora iussa petunt, ubi magni filia regis</span></li>
+            <li class="v-line"><span class="v-num">845</span><span class="v-lat">ludere virginibus Tyriis comitata solebat.</span></li>
+            <li class="v-line"><span class="v-num">846</span><span class="v-lat">non bene conveniunt nec in una sede morantur</span></li>
+            <li class="v-line"><span class="v-num">847</span><span class="v-lat">maiestas et amor: sceptri gravitate relicta</span></li>
+            <li class="v-line"><span class="v-num">848</span><span class="v-lat">ille pater rectorque deum, cui dextra trisulcis</span></li>
+            <li class="v-line"><span class="v-num">849</span><span class="v-lat">ignibus armata est, qui nutu concutit orbem,</span></li>
+            <li class="v-line"><span class="v-num">850</span><span class="v-lat">induitur faciem tauri mixtusque iuvencis</span></li>
+            <li class="v-line"><span class="v-num">851</span><span class="v-lat">mugit et in teneris formosus obambulat herbis.</span></li>
+            <li class="v-line"><span class="v-num">852</span><span class="v-lat">quippe color nivis est, quam nec vestigia duri</span></li>
+            <li class="v-line"><span class="v-num">853</span><span class="v-lat">calcavere pedis nec solvit aquaticus auster;</span></li>
+            <li class="v-line"><span class="v-num">854</span><span class="v-lat">colla toris exstant, armis palearia pendent,</span></li>
+            <li class="v-line"><span class="v-num">855</span><span class="v-lat">cornua parva quidem, sed quae contendere possis</span></li>
+            <li class="v-line"><span class="v-num">856</span><span class="v-lat">facta manu, puraque magis perlucida gemma;</span></li>
+            <li class="v-line"><span class="v-num">857</span><span class="v-lat">nullae in fronte minae nec formidabile lumen:</span></li>
+            <li class="v-line"><span class="v-num">858</span><span class="v-lat">pacem vultus habet. miratur Agenore nata,</span></li>
+            <li class="v-line"><span class="v-num">859</span><span class="v-lat">quod tam formosus, quod proelia nulla minetur;</span></li>
+            <li class="v-line"><span class="v-num">860</span><span class="v-lat">sed quamvis mitem metuit contingere primo:</span></li>
+            <li class="v-line"><span class="v-num">861</span><span class="v-lat">mox adit et flores ad candida porrigit ora.</span></li>
+            <li class="v-line"><span class="v-num">862</span><span class="v-lat">gaudet amans et, dum veniat sperata voluptas,</span></li>
+            <li class="v-line"><span class="v-num">863</span><span class="v-lat">oscula dat manibus; vix iam, vix cetera differt</span></li>
+            <li class="v-line"><span class="v-num">864</span><span class="v-lat">et nunc adludit viridique exsultat in herba,</span></li>
+            <li class="v-line"><span class="v-num">865</span><span class="v-lat">nunc latus in fulvis niveum deponit harenis</span></li>
+            <li class="v-line"><span class="v-num">866</span><span class="v-lat">paulatimque metu dempto modo pectora praebet</span></li>
+            <li class="v-line"><span class="v-num">867</span><span class="v-lat">virginea plaudenda manu, modo cornua sertis</span></li>
+            <li class="v-line"><span class="v-num">868</span><span class="v-lat">impedienda novis. ausa est quoque regia virgo</span></li>
+            <li class="v-line"><span class="v-num">869</span><span class="v-lat">nescia, quem premeret, tergo considere tauri:</span></li>
+            <li class="v-line"><span class="v-num">870</span><span class="v-lat">cum deus a terra siccoque a litore sensim</span></li>
+            <li class="v-line"><span class="v-num">871</span><span class="v-lat">falsa pedum primis vestigia ponit in undis,</span></li>
+            <li class="v-line"><span class="v-num">872</span><span class="v-lat">inde abit ulterius mediīque per aequora ponti</span></li>
+            <li class="v-line"><span class="v-num">873</span><span class="v-lat">fert praedam. pavet haec litusque ablata relictum</span></li>
+            <li class="v-line"><span class="v-num">874</span><span class="v-lat">respicit et dextra cornum tenet, altera dorso</span></li>
+            <li class="v-line"><span class="v-num">875</span><span class="v-lat">inposita est; tremulae sinuantur flamine vestes.</span></li>
+          </ul>
+        </div>
+        <div class="par-col">
+          <h3>Deutsch · Reclam</h3>
+          <ul class="verse-list">
+            <li class="v-line"><span class="v-num">833–835</span><span class="v-de">Sobald der Sohn der Atlastochter jenes Mädchen so für ihre Worte und für ihre unheilige Gesinnung bestraft hat, verlässt er das nach Pallas benannte Land, schlägt mit den Flügeln und gelangt in den Himmel.</span></li>
+            <li class="v-line"><span class="v-num">836–842</span><span class="v-de">Ihn ruft sein Vater beiseite und spricht zu ihm, ohne ihm den wahren Grund seines Auftrags zu nennen: »Mein Sohn, spute dich und gleite mit gewohnter Schnelligkeit hinab in das Land, das die Eingeborenen Sidonis nennen. Lenke die königliche Rinderherde zur Küste!«</span></li>
+            <li class="v-line"><span class="v-num">843–845</span><span class="v-de">Sprach's — und schon sind die Jungstiere vom Berg vertrieben und ziehen zum Strand, wo die Tochter des großen Königs mit Mädchen aus Tyros zu spielen pflegte.</span></li>
+            <li class="v-line"><span class="v-num">846–851</span><span class="v-de">Schlecht vertragen sich Würde und Liebe. Der Vater und Herrscher der Götter nimmt die Gestalt eines Stieres an, mischt sich unter die Jungstiere, muht und spaziert anmutig durch die zarten Gräser.</span></li>
+            <li class="v-line"><span class="v-num">852–857</span><span class="v-de">Er ist weiß wie unberührter Schnee. Der Hals strotzt vor Muskeln, die Hörner sind durchscheinender als reine Edelsteine. Die Stirn hat nichts Drohendes, die Miene strahlt Frieden aus.</span></li>
+            <li class="v-line"><span class="v-num">858–861</span><span class="v-de">Agenors Tochter staunt über seine Schönheit. Trotz seiner Sanftmut fürchtet sie sich anfangs, ihn anzurühren. Bald hält sie ihm Blumen ans schneeweiße Maul.</span></li>
+            <li class="v-line"><span class="v-num">862–867</span><span class="v-de">Der Liebende freut sich und küsst ihr die Hände. Er spielt mit ihr, springt im grünen Gras umher, lässt sich die Brust tätscheln und die Hörner mit frischen Girlanden umwinden.</span></li>
+            <li class="v-line"><span class="v-num">868–869</span><span class="v-de">Es wagte die Königstochter sogar, ohne zu wissen, auf wem sie ritt, sich auf den Rücken des Stieres zu setzen.</span></li>
+            <li class="v-line"><span class="v-num">870–872</span><span class="v-de">Da strebt der Gott allmählich vom Festland und dem trockenen Strand hinweg, setzt seine Füße trügerisch ins Wasser und trägt seine Beute mitten über die Meeresfläche.</span></li>
+            <li class="v-line"><span class="v-num">873–875</span><span class="v-de">Sie ängstigt sich und blickt, die Entführte, zum verlassenen Strand zurück. Mit der Rechten hält sie ein Horn fest, die andere Hand ruht auf dem Rücken. Das flatternde Kleid bauscht sich im Winde.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -1622,6 +1531,21 @@ function toggleEH(btn) {
   const eh = btn.nextElementSibling;
   const open = eh.classList.toggle('open');
   btn.textContent = open ? 'Schließen' : 'Erwartungshorizont';
+}
+
+// ── Vokabular aufklappbar ────────────────────────────────────────
+document.querySelectorAll('.vocab-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.classList.toggle('open');
+  });
+});
+
+// ── Deutsche Übersetzung toggle ──────────────────────────────────
+function toggleTranslation(btn) {
+  const content = btn.nextElementSibling;
+  const open = content.style.display === 'none';
+  content.style.display = open ? 'block' : 'none';
+  btn.textContent = open ? 'Übersetzung schließen' : 'Übersetzung anzeigen';
 }
 </script>
 
