@@ -203,7 +203,11 @@
 
   .story-grid {
     display: grid; grid-template-columns: 0.85fr 1fr;
-    gap: 6rem; align-items: center;
+    gap: 6rem; align-items: start;
+  }
+
+  .story-img-stack {
+    display: flex; flex-direction: column; gap: 1.6rem;
   }
 
   .story-img-wrap {
@@ -227,6 +231,9 @@
     transform: scale(1.06);
     filter: sepia(6%) contrast(1.05) brightness(0.96);
   }
+
+  .story-img-wrap.wide { aspect-ratio: 4/3; }
+  .story-img-wrap.wide img { object-position: center center; }
 
   .img-caption {
     position: absolute; bottom: 0; left: 0; right: 0;
@@ -736,7 +743,9 @@
     .container { padding: 0 1.8rem; }
 
     .story-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+    .story-img-stack { gap: 1.2rem; }
     .story-img-wrap { aspect-ratio: 16/9; }
+    .story-img-wrap.wide { aspect-ratio: 16/9; }
 
     .gram-grid { grid-template-columns: 1fr; gap: 3.5rem; }
     .edition-wrap { grid-template-columns: 1fr; }
@@ -812,13 +821,23 @@
 <section id="inhaltsangabe">
   <div class="container">
     <div class="story-grid">
-      <div class="story-img-wrap reveal-left">
-        <img
-          src="./images/tizian_europa.png"
-          alt="Tizian – Der Raub der Europa, ca. 1560–62"
-          loading="lazy"
-        >
-        <p class="img-caption">Tizian · Der Raub der Europa · ca. 1560–62 · Isabella Stewart Gardner Museum, Boston</p>
+      <div class="story-img-stack reveal-left">
+        <div class="story-img-wrap">
+          <img
+            src="./images/tizian_europa.png"
+            alt="Tizian – Der Raub der Europa, ca. 1560–62"
+            loading="lazy"
+          >
+          <p class="img-caption">Tizian · Der Raub der Europa · ca. 1560–62 · Isabella Stewart Gardner Museum, Boston</p>
+        </div>
+        <div class="story-img-wrap wide">
+          <img
+            src="./images/the_rape_of_europa.jpg"
+            alt="Der Raub der Europa"
+            loading="lazy"
+          >
+          <p class="img-caption">Der Raub der Europa · Kunsthistorische Darstellung</p>
+        </div>
       </div>
 
       <div class="story-text reveal">
