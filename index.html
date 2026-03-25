@@ -440,21 +440,24 @@
   }
 
   .gram-grid {
-    display: grid; grid-template-columns: 1fr 1.2fr 190px;
+    display: grid; grid-template-columns: 1fr 1.2fr;
     gap: 5rem 3.5rem; align-items: start;
   }
   .gram-img {
-    position: sticky; top: 7rem;
+    margin-top: 3.5rem;
+    display: flex; gap: 2.5rem; align-items: flex-start;
+    border-top: 1px solid rgba(201,164,74,0.15);
+    padding-top: 3rem;
   }
   .gram-img img {
-    width: 100%; display: block;
+    width: 200px; flex-shrink: 0; display: block;
     border: 1px solid rgba(201,164,74,0.2);
     filter: sepia(18%) contrast(1.05) brightness(0.82);
   }
   .gram-img figcaption {
     font-size: 0.72rem; color: var(--ivory-dim);
-    font-style: italic; margin-top: 0.7rem;
-    line-height: 1.5; text-align: center;
+    font-style: italic; margin-top: 0.4rem;
+    line-height: 1.6;
   }
 
   .hi-box {
@@ -777,12 +780,13 @@
     .story-img-wrap.wide { aspect-ratio: 16/9; }
 
     .gram-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .gram-img { position: static; }
+    .gram-img { flex-direction: column; }
+    .gram-img img { width: 100%; max-width: 260px; }
     .edition-wrap { grid-template-columns: 1fr; }
     .parallel-cols { grid-template-columns: 1fr; gap: 0; }
     .scan-row { overflow-x: auto; }
     .refl-layout { flex-direction: column !important; }
-    .refl-layout figure { position: static !important; flex: 0 0 auto !important; max-width: 200px; margin: 2rem auto 0 !important; }
+    .refl-layout figure { flex: 0 0 auto !important; max-width: 200px; margin: 2rem auto 0 !important; }
   }
 
   @media (max-width: 600px) {
@@ -1120,16 +1124,21 @@
 
       </div>
 
-      <figure class="gram-img reveal">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Hermes_Ingenui_Pio-Clementino_Inv544.jpg"
-          alt="Hermes/Merkur – Römische Marmorkopie"
-          loading="lazy"
-        >
-        <figcaption>Hermes Ingenui · Römische Marmorkopie · Vatikanische Museen, Rom</figcaption>
-      </figure>
-
     </div>
+
+    <figure class="gram-img reveal">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Hermes_Ingenui_Pio-Clementino_Inv544.jpg"
+        alt="Hermes/Merkur – Römische Marmorkopie"
+        loading="lazy"
+      >
+      <figcaption>
+        <strong style="color: var(--ivory); font-style: normal;">Hermes Ingenui</strong><br>
+        Römische Marmorkopie eines griechischen Originals · Vatikanische Museen, Rom · gemeinfrei<br>
+        <span style="opacity: 0.7;">Merkur (griech. Hermes) als Götterbote — Held der grammatischen Analyse: V. 835 schildert seinen Flug in den Himmel mit ausgebreiteten Flügeln (<em>iactatis … pennis</em>).</span>
+      </figcaption>
+    </figure>
+
   </div>
 </section>
 
@@ -1360,7 +1369,7 @@
         </p>
       </div>
 
-      <figure style="flex: 0 0 220px; margin: 0; position: sticky; top: 7rem;">
+      <figure style="flex: 0 0 220px; margin: 0;">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Didrachm_Phaistos_obverse_CdM.jpg"
           alt="Antike Münze aus Phaistos – Europa auf dem Stier"
