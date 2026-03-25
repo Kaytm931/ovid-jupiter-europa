@@ -681,6 +681,22 @@
   }
 
   /* ══════════════════════════════════════════════
+     BACK TO TOP BUTTON
+  ══════════════════════════════════════════════ */
+  #back-top {
+    position: fixed; bottom: 1.6rem; right: 1.6rem; z-index: 900;
+    width: 38px; height: 38px;
+    background: rgba(7,6,10,0.85);
+    border: 1px solid rgba(201,164,74,0.4);
+    color: #c9a44a; font-size: 1rem; line-height: 38px; text-align: center;
+    cursor: pointer; border-radius: 3px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, border-color 0.2s;
+  }
+  #back-top.visible { opacity: 1; pointer-events: auto; }
+  #back-top:hover { border-color: #c9a44a; }
+
+  /* ══════════════════════════════════════════════
      SMOOTH SECTION TRANSITIONS
   ══════════════════════════════════════════════ */
   #originaltext::before,
@@ -792,7 +808,7 @@
     <li><a href="#metrik">Metrik</a></li>
     <li><a href="#grammatik">Grammatik</a></li>
     <li><a href="#schulausgabe">Schulausgabe</a></li>
-    <li><a href="#ueberden">Reflexion</a></li>
+    <li><a href="#ueberden">Gegenwart</a></li>
     <li><a href="#originaltext">Originaltext</a></li>
   </ul>
 </nav>
@@ -1302,26 +1318,6 @@
     <span class="sec-label">§ 5 · Über den Mythos hinaus</span>
     <h2 class="sec-title reveal">Bezug zur eigenen Lebenswelt</h2>
 
-    <!-- ════════════════════════════════════════════════════════════
-         PLATZHALTER  —  Füge hier deinen Inhalt ein.
-         Ersetze den gesamten <div class="placeholder-box">…</div>
-         durch dein Meme mit Erklärung ODER deine persönliche Reflexion.
-
-         Beispiel Meme:
-           <figure style="text-align:center;max-width:600px;margin:0 auto">
-             <img src="DEIN-BILD.jpg" alt="Beschreibung"
-                  style="width:100%;border:1px solid rgba(201,164,74,0.3)">
-             <figcaption style="margin-top:1rem;font-style:italic;color:var(--ivory-dim)">
-               Erklärung des Memes…
-             </figcaption>
-           </figure>
-
-         Beispiel Reflexion:
-           <p style="max-width:700px;margin:0 auto;font-size:1.1rem;line-height:2">
-             Mein persönlicher Kommentar zum Mythos…
-           </p>
-    ════════════════════════════════════════════════════════════ -->
-
     <div class="reveal" style="max-width: 780px; margin: 0 auto;">
   <h3 style="font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: #c9a44a; margin-bottom: 1.5rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(201,164,74,0.2);">Bezug zur eigenen Lebenswelt: Der Mythos und Social Media</h3>
 
@@ -1337,8 +1333,6 @@
     Die Warnung hinter Ovids Mythos ist über 2000 Jahre alt, aber aktueller denn je: Nicht alles, was schön und harmlos aussieht, ist es auch.
   </p>
 </div>
-
-    <!-- ════  ENDE PLATZHALTER  ════ -->
 
   </div>
 </section>
@@ -1494,6 +1488,8 @@
 <!-- ════════════════════════════════════════
      FOOTER
 ════════════════════════════════════════ -->
+<button id="back-top" aria-label="Nach oben" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <footer>
   <div class="ft-brand">Iuppiter et Europa</div>
   <p class="ft-text">
@@ -1501,9 +1497,17 @@
     Lateinisches Schulprojekt · Digitale Ausgabe
   </p>
   <div class="ft-div"></div>
-  <p class="ft-text" style="font-size:0.75rem;color:var(--gold-dim)">
-    Gemeinfreie Kunstwerke via Wikimedia Commons ·
+  <p class="ft-text" style="font-size:0.75rem;color:var(--gold-dim);line-height:1.8">
+    <strong style="color:var(--ivory-dim);font-size:0.7rem;letter-spacing:0.1em;">Bildnachweise</strong><br>
+    Tizian · <em>Der Raub der Europa</em> · ca. 1560–62 · Isabella Stewart Gardner Museum, Boston · gemeinfrei<br>
+    Valentin Serov · <em>Der Raub der Europa</em> · 1910 · Tretjakow-Galerie, Moskau · gemeinfrei<br>
     Schriften: Cinzel &amp; EB Garamond via Google Fonts
+  </p>
+  <div class="ft-div"></div>
+  <p class="ft-text" style="font-size:0.7rem;color:var(--gold-dim);opacity:0.6;">
+    <strong style="color:var(--ivory-dim);font-size:0.68rem;letter-spacing:0.1em;">Impressum</strong><br>
+    Diese Website ist ein nicht-kommerzielles Schulprojekt und dient ausschließlich Bildungszwecken.<br>
+    Verantwortlich: Schülerin des Gymnasiums · Klasse &amp; Schuljahr 2025/26
   </p>
 </footer>
 
@@ -1511,10 +1515,12 @@
      JAVASCRIPT
 ════════════════════════════════════════ -->
 <script>
-// ── Nav scroll ──────────────────────────────────────────────────
+// ── Nav scroll + Back-to-top ─────────────────────────────────────
 const nav = document.getElementById('nav');
+const backTop = document.getElementById('back-top');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
+  backTop.classList.toggle('visible', window.scrollY > 400);
 });
 
 // ── Parallax hero + fadeout ─────────────────────────────────────
