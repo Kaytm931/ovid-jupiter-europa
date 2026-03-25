@@ -440,8 +440,21 @@
   }
 
   .gram-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 6rem; align-items: start;
+    display: grid; grid-template-columns: 1fr 1.2fr 190px;
+    gap: 5rem 3.5rem; align-items: start;
+  }
+  .gram-img {
+    position: sticky; top: 7rem;
+  }
+  .gram-img img {
+    width: 100%; display: block;
+    border: 1px solid rgba(201,164,74,0.2);
+    filter: sepia(18%) contrast(1.05) brightness(0.82);
+  }
+  .gram-img figcaption {
+    font-size: 0.72rem; color: var(--ivory-dim);
+    font-style: italic; margin-top: 0.7rem;
+    line-height: 1.5; text-align: center;
   }
 
   .hi-box {
@@ -763,11 +776,13 @@
     .story-img-wrap { aspect-ratio: 16/9; }
     .story-img-wrap.wide { aspect-ratio: 16/9; }
 
-    .gram-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+    .gram-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .gram-img { position: static; }
     .edition-wrap { grid-template-columns: 1fr; }
     .parallel-cols { grid-template-columns: 1fr; gap: 0; }
-
     .scan-row { overflow-x: auto; }
+    .refl-layout { flex-direction: column !important; }
+    .refl-layout figure { position: static !important; flex: 0 0 auto !important; max-width: 200px; margin: 2rem auto 0 !important; }
   }
 
   @media (max-width: 600px) {
@@ -1103,18 +1118,16 @@
           Das Hyperbaton schafft eine Art Klammer: Die Flügel (<em>iactatis … pennis</em>) umschließen den Himmel (<em>aethera</em>) – so wie Merkurs Schwingen die Luft umschließen, wenn er fliegt. Ovid baut die Wortstellung also genauso wie das Bild, das er beschreibt.
         </p>
 
-        <div style="margin-top: 2rem; text-align: center;">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Hermes_Ingenui_Pio-Clementino_Inv544.jpg"
-            alt="Hermes/Merkur – Römische Marmorkopie"
-            style="max-width: 240px; width: 100%; filter: sepia(18%) contrast(1.05) brightness(0.85);"
-            loading="lazy"
-          >
-          <p style="font-size: 0.75rem; color: #b8aa95; font-style: italic; margin-top: 0.8rem;">
-            Hermes Ingenui · Römische Kopie · Vatikanische Museen
-          </p>
-        </div>
       </div>
+
+      <figure class="gram-img reveal">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Hermes_Ingenui_Pio-Clementino_Inv544.jpg"
+          alt="Hermes/Merkur – Römische Marmorkopie"
+          loading="lazy"
+        >
+        <figcaption>Hermes Ingenui · Römische Marmorkopie · Vatikanische Museen, Rom</figcaption>
+      </figure>
 
     </div>
   </div>
@@ -1331,31 +1344,35 @@
     <span class="sec-label">§ 5 · Über den Mythos hinaus</span>
     <h2 class="sec-title reveal">Bezug zur eigenen Lebenswelt</h2>
 
-    <div class="reveal" style="max-width: 780px; margin: 0 auto;">
-  <p style="font-size: 1.05rem; color: #f0e8d6; line-height: 1.95; margin-bottom: 1.3rem;">
-    Jupiter verwandelt sich in einen makellosen Stier — kein Drohen, friedliche Miene, perfektes Äußeres (V. 852–857). Alles ist bewusst inszeniert, um Europas Vertrauen zu gewinnen. Das gleiche Prinzip begegnet uns heute auf Social Media: Ein Profil mit gestohlenen Fotos, charmanten Nachrichten, scheinbar echtem Interesse — dahinter steckt jemand mit ganz anderen Absichten.
-  </p>
+    <div class="reveal refl-layout" style="display: flex; gap: 4rem; align-items: flex-start; max-width: 960px; margin: 0 auto;">
 
-  <p style="font-size: 1.05rem; color: #f0e8d6; line-height: 1.95; margin-bottom: 1.3rem;">
-    Stell dir vor, du bekommst auf Instagram eine Nachricht von jemandem, der gut aussieht, sympathisch schreibt und genau deine Interessen teilt. Über Wochen baut sich ein Vertrauen auf — genau wie bei Europa, die den Stier erst vorsichtig berührt, dann streichelt, dann füttert und sich schließlich auf seinen Rücken setzt (V. 860–868). Jeder Schritt fühlt sich harmlos an. Erst als Jupiter ins Wasser geht, merkt Europa, dass es zu spät ist — sie blickt zum Strand zurück, den sie nicht mehr erreichen kann (V. 873). Genauso geht es Opfern von Catfishing: Wenn die Täuschung auffliegt, sind oft schon persönliche Daten, Bilder oder Geld in den falschen Händen.
-  </p>
+      <div style="flex: 1; min-width: 0;">
+        <p style="font-size: 1.05rem; color: #f0e8d6; line-height: 1.95; margin-bottom: 1.3rem;">
+          Jupiter verwandelt sich in einen makellosen Stier — kein Drohen, friedliche Miene, perfektes Äußeres (V. 852–857). Alles ist bewusst inszeniert, um Europas Vertrauen zu gewinnen. Das gleiche Prinzip begegnet uns heute auf Social Media: Ein Profil mit gestohlenen Fotos, charmanten Nachrichten, scheinbar echtem Interesse — dahinter steckt jemand mit ganz anderen Absichten.
+        </p>
 
-  <p style="font-size: 1.05rem; color: #f0e8d6; line-height: 1.95; margin-bottom: 0;">
-    Am Ende ist die Botschaft eigentlich simpel, aber trotzdem wichtig: Nur weil etwas gut aussieht, heißt das nicht, dass es gut ist. Das galt vor 2000 Jahren am Strand von Sidon genauso wie heute auf Instagram.
-  </p>
+        <p style="font-size: 1.05rem; color: #f0e8d6; line-height: 1.95; margin-bottom: 1.3rem;">
+          Stell dir vor, du bekommst auf Instagram eine Nachricht von jemandem, der gut aussieht, sympathisch schreibt und genau deine Interessen teilt. Über Wochen baut sich ein Vertrauen auf — genau wie bei Europa, die den Stier erst vorsichtig berührt, dann streichelt, dann füttert und sich schließlich auf seinen Rücken setzt (V. 860–868). Jeder Schritt fühlt sich harmlos an. Erst als Jupiter ins Wasser geht, merkt Europa, dass es zu spät ist — sie blickt zum Strand zurück, den sie nicht mehr erreichen kann (V. 873). Genauso geht es Opfern von Catfishing: Wenn die Täuschung auffliegt, sind oft schon persönliche Daten, Bilder oder Geld in den falschen Händen.
+        </p>
 
-  <div style="margin-top: 2.5rem; text-align: center;">
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Didrachm_Phaistos_obverse_CdM.jpg"
-      alt="Antike Münze aus Phaistos – Europa auf dem Stier"
-      style="max-width: 280px; width: 100%; border: 1px solid rgba(201,164,74,0.3); filter: sepia(15%) contrast(1.05) brightness(0.9);"
-      loading="lazy"
-    >
-    <p style="font-size: 0.75rem; color: #b8aa95; font-style: italic; margin-top: 0.8rem;">
-      Antike Silbermünze aus Phaistos (Kreta) · ca. 300 v. Chr. · Europa auf dem Stier
-    </p>
-  </div>
-</div>
+        <p style="font-size: 1.05rem; color: #f0e8d6; line-height: 1.95; margin-bottom: 0;">
+          Am Ende ist die Botschaft eigentlich simpel, aber trotzdem wichtig: Nur weil etwas gut aussieht, heißt das nicht, dass es gut ist. Das galt vor 2000 Jahren am Strand von Sidon genauso wie heute auf Instagram.
+        </p>
+      </div>
+
+      <figure style="flex: 0 0 220px; margin: 0; position: sticky; top: 7rem;">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Didrachm_Phaistos_obverse_CdM.jpg"
+          alt="Antike Münze aus Phaistos – Europa auf dem Stier"
+          style="width: 100%; border: 1px solid rgba(201,164,74,0.25); border-radius: 50%; filter: sepia(15%) contrast(1.05) brightness(0.88);"
+          loading="lazy"
+        >
+        <figcaption style="font-size: 0.72rem; color: #b8aa95; font-style: italic; margin-top: 0.9rem; text-align: center; line-height: 1.5;">
+          Silbermünze aus Phaistos (Kreta)<br>ca. 300 v. Chr. · Europa auf dem Stier
+        </figcaption>
+      </figure>
+
+    </div>
 
   </div>
 </section>
